@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	var dataX;
-	$.get("http://localhost:8000/pkl/xyz", function(data, status){
+	$.get("https://pkl-smk.herokuapp.com/xyz", function(data, status){
 		dataX = data;
 		console.log(data);
 		var optionsProfileVisit = {
