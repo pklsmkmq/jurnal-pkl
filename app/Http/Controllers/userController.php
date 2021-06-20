@@ -7,7 +7,7 @@ use App\Models\santri;
 use App\Models\pembimbing;
 use App\Models\jurnal;
 use App\Models\walsan;
-use App\Models\user;
+use App\Models\User;
 use Auth;
 
 class userController extends Controller
