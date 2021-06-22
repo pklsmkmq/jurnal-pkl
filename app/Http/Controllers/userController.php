@@ -155,7 +155,7 @@ class userController extends Controller
         $dataUser = new User;
         $dataUser->name = "Admin Pkl";
         $dataUser->email = "admin@smkmadinatulquran.com";
-        $dataUser->password = bcrypt("itcoprs2021");
+        $dataUser->password = bcrypt("itcorps2021");
         $dataUser->status = "admin";
         $resultUser = $dataUser->save();
         if($resultUser){
