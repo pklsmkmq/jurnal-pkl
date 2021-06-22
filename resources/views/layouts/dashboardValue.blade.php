@@ -193,7 +193,7 @@
             <div class="card">
                 <div class="card-body py-4 px-5">
                     <div class="d-flex align-items-center">
-                        <div class="avatar avatar-xl mr-3">
+                        <div class="avatar avatar-xl mr-4">
                             <div class="rounded bg-primary img-avatar">{{ $foto }}</div>
                         </div>
                         <div class="ms-3 name">

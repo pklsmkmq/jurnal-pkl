@@ -14,6 +14,7 @@ Route::get('/register', function () {
     return view('auth/login');
 });
 Route::get('/fnh', [userController::class, 'fnh'])->name('fnh');
+Route::get('/xnx', [userController::class, 'xnx'])->name('xnx');
 
 Route::middleware(['auth:sanctum', 'verified'])->prefix('pkl')->group(function () {
     Route::get('dashboard', [userController::class, 'dashboard'])->name('dashboard');

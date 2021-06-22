@@ -241,7 +241,10 @@ body {
   text-align: center; }
   @media screen and (max-width: 660px) {
     .kanan {
-      width: 100%; } 
+      width: 100%; }
+    .row{
+      margin: 0px !important;
+    } 
   }
   .kiri{
     background-image: url(../images/bg-login.jpg);
@@ -343,5 +346,5 @@ body {
 }
 
 .col-6.left.no-padding{
-  margin-left: -0.5%;
+  margin-left: -1.5%;
 }
