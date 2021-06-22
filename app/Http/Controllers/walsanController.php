@@ -29,7 +29,7 @@ class walsanController extends Controller
     public function create()
     {
         $data = santri::get();
-        return view('layouts/walsan/addwalsan',compact('data'));
+        return view('layouts/walsan/addWalsan',compact('data'));
     }
 
     /**
