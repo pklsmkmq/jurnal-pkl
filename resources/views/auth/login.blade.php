@@ -63,7 +63,7 @@
                 </div>
     
                 <div class="foot">
-                    <p>Copyright 2021 @ IT Coprs SMK Madinatul Qur'an</p> 
+                    <p>Copyright 2021 @ IT Coprs SMK MADINATULQURAN</p> 
                 </div>
             </form>
         </div>
