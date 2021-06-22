@@ -66,7 +66,7 @@ class pembimbingController extends Controller
                 $dataUser = new User;
                 $dataUser->name = $request->nama_pembimbing;
                 $dataUser->email = $request->email_pembimbing;
-                $dataUser->password = bcrypt("gurusmk2021");
+                $dataUser->password = bcrypt("gurusmk2021@!*");
                 $dataUser->status = "pembimbing";
                 $resultUser = $dataUser->save();
                 if($resultUser){
