@@ -149,7 +149,7 @@ class jurnalController extends Controller
             if (Auth::user()->name == $data->santri->nama_santri) {
                 return view('layouts/jurnal/editJurnal',compact('data'));
             }else{
-                return abort(404);
+                return abort(401);
             }
         } else {
             return abort(404);
@@ -179,8 +179,10 @@ class jurnalController extends Controller
         }else{
             $santri = santri::where('email_santri',Auth::user()->email)->first();
             $cekTgl = jurnal::where('tanggal_jurnal',$request->tanggal_jurnal)->where('santri_nisn',$santri->nisn)->first();
-            if ($cekTgl->id != $id) {
-                return redirect()->route('jurnalEdit',$id = $id)->with('warning',"Tanggal jurnal sudah ada!");    
+            if ($cekTgl) {
+                if ($cekTgl->id != $id) {
+                    return redirect()->route('jurnalEdit',$id = $id)->with('warning',"Tanggal jurnal sudah ada!");    
+                }
             }
 
             $data = jurnal::where('id',$id)->first();
@@ -197,6 +199,7 @@ class jurnalController extends Controller
             $data->judul_jurnal = $request->judul_jurnal;
             $data->deskripsi_jurnal = $request->deskripsi_jurnal;
             $data->foto_dokumentasi_jurnal = $data->foto_dokumentasi_jurnal;
+            $data->tanggal_jurnal = $request->tanggal_jurnal;
 
             $result = $data->save();
             if ($result) {
