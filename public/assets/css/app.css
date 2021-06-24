@@ -15,3 +15,7 @@
     color: white;
     font-weight: bold;
 }
+
+button.btn.btn-block.btn-xl.btn-light-primary.font-bold.mt-3 {
+    font-size: 12px;
+}
