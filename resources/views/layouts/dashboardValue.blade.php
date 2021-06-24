@@ -19,12 +19,12 @@
                     <div class="card">
                         <div class="card-body px-3 py-4-5">
                             <div class="row">
-                                <div class="col-md-4 col-3">
+                                <div class="col-md-4 col-4">
                                     <div class="stats-icon purple">
                                         <i class="iconly-boldShow"></i>
                                     </div>
                                 </div>
-                                <div class="col-md-8 col-9">
+                                <div class="col-md-8 col-8">
                                     <h6 class="text-muted font-semibold text-front">
                                         @if (auth()->user()->status == "santri" || auth()->user()->status == "walsan")
                                             Kunjungan
@@ -42,12 +42,12 @@
                     <div class="card">
                         <div class="card-body px-3 py-4-5">
                             <div class="row">
-                                <div class="col-md-4 col-3">
+                                <div class="col-md-4 col-4">
                                     <div class="stats-icon blue">
                                         <i class="iconly-boldProfile"></i>
                                     </div>
                                 </div>
-                                <div class="col-md-8 col-9">
+                                <div class="col-md-8 col-8">
                                     <h6 class="text-muted font-semibold text-front">
                                         @if (auth()->user()->status == "pembimbing")
                                             Sisa Kunjungan
@@ -69,12 +69,12 @@
                     <div class="card">
                         <div class="card-body px-3 py-4-5">
                             <div class="row">
-                                <div class="col-md-4 col-3">
+                                <div class="col-md-4 col-4">
                                     <div class="stats-icon green">
                                         <i class="iconly-boldAdd-User"></i>
                                     </div>
                                 </div>
-                                <div class="col-md-8 col-9">
+                                <div class="col-md-8 col-8">
                                     <h6 class="text-muted font-semibold text-front">
                                         @if (auth()->user()->status == "pembimbing")
                                             Kunjungan Selesai
@@ -98,12 +98,12 @@
                     <div class="card">
                         <div class="card-body px-3 py-4-5">
                             <div class="row">
-                                <div class="col-md-4 col-3">
+                                <div class="col-md-4 col-4">
                                     <div class="stats-icon red">
                                         <i class="iconly-boldBookmark"></i>
                                     </div>
                                 </div>
-                                <div class="col-md-8 col-9">
+                                <div class="col-md-8 col-8">
                                     <h6 class="text-muted font-semibold text-front">Total Jurnal</h6>
                                     <h2 class="font-extrabold mb-0">{{ $data4 }}</h2>
                                 </div>

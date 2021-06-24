@@ -34,7 +34,7 @@
                     <div class="card-content">
                         <div class="card-body">
                             @include('layouts/massage')
-                            <form class="form" method="POST" action="{{ route('saveWalsan') }}">
+                            <form class="form" method="POST" action="{{ route('updateWalsan') }}">
                                 @csrf
                                 @method("put")
                                 <div class="row">

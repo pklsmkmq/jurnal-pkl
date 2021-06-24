@@ -30,9 +30,9 @@
                 <img src="{{ url('assets/images/logo.png') }}" alt="logo smk" class="img-responsive">
                 <h2>Login into Your Account</h2>
                 
-                <x-jet-validation-errors class="mb-4" />
+                <x-jet-validation-errors class="mb-4" style="color: red; font-size: 12px"/>
                 @if (session('status'))
-                    <div class="mb-4 font-medium text-sm text-green-600">
+                    <div class="mb-4 font-medium text-sm">
                         {{ session('status') }}
                     </div>
                 @endif
