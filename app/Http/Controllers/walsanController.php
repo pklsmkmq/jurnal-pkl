@@ -178,9 +178,9 @@ class walsanController extends Controller
 
             $result = $data->save();
             if ($result) {
-                return redirect()->route('pembimbing')->with('success',"Data Berhasil Terubah");
+                return redirect()->route('walsan')->with('success',"Data Berhasil Terubah");
             }else{
-                return redirect()->route('pembimbing')->with('error',"Data Gagal Terubah");
+                return redirect()->route('walsan')->with('error',"Data Gagal Terubah");
             }
         }
     }
