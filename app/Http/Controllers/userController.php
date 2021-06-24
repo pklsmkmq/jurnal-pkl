@@ -73,7 +73,7 @@ class userController extends Controller
                 $recentJurnal = null;
             }
         }elseif (Auth::user()->status == "walsan") {
-            $walsan = walsan::where('email_walsan','abubakar@gmail.com')->with('santri')->first();
+            $walsan = walsan::where('email_walsan',Auth::user()->email)->with('santri')->first();
             $pembimbing = pembimbing::where('id',$walsan->santri->pembimbing_id)->first();
             $jurnal = jurnal::where('santri_nisn',$walsan->santri_nisn)->count();
 
@@ -125,7 +125,7 @@ class userController extends Controller
             $pembimbing = pembimbing::where('email_pembimbing',Auth::user()->email)->first();
             $dt = santri::where('pembimbing_id',$pembimbing->id)->get();
         }elseif (Auth::user()->status == "walsan") {
-            $walsan = walsan::where('email_walsan','abubakar@gmail.com')->with('santri')->first();
+            $walsan = walsan::where('email_walsan',Auth::user()->email)->with('santri')->first();
         }
         $arr = ["2021-06","2021-07","2021-08","2021-09","2021-10"];
         $abc = [];
