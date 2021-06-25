@@ -36,7 +36,8 @@
                     </div>
                     <div class="card-content">
                         <div class="card-body">
-                            <a href="{{ $data->foto_dokumentasi_jurnal }}" target="_blank"><img src="{{ $data->foto_dokumentasi_jurnal }}" alt="jurnal santri" class="rounded mx-auto d-block img-fluid detail-jurnal mb-5"></a>
+                            <a href="{{ $data->foto_dokumentasi_jurnal }}" target="_blank"><img src="{{ $data->foto_dokumentasi_jurnal }}" alt="jurnal santri" class="rounded d-block img-fluid detail-jurnal mb-5"></a>
+                            <strong>Deskripsi Jurnal:</strong>
                             <p>{{ $data->deskripsi_jurnal }}</p>
                         </div>
                     </div>
