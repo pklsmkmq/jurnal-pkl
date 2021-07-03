@@ -7,6 +7,7 @@ use App\Models\santri;
 use App\Models\pembimbing;
 use App\Models\jurnal;
 use App\Models\walsan;
+use App\Models\kegiatan;
 use Validator;
 use Auth;
 
@@ -43,9 +44,13 @@ class jurnalController extends Controller
     public function detail($id)
     {
         $data = jurnal::where('id',$id)->with('santri')->first();
+        $kegiatan = kegiatan::where('santri_nisn',$data->santri_nisn)->where('tanggal_kegiatan',$data->tanggal_jurnal)->first();
         if ($data) {
             if (Auth::user()->name == $data->santri->nama_santri || Auth::user()->status == "pembimbing" || Auth::user()->status == "admin" || Auth::user()->status == "walsan") {
-                return view('layouts/jurnal/jurnalDetail',compact('data'));
+                return view('layouts/jurnal/jurnalDetail',[
+                    "data"=>$data,
+                    "kegiatan"=>$kegiatan
+                ]);
             }else{
                 return abort(404);
             }
@@ -108,16 +113,33 @@ class jurnalController extends Controller
             $data->santri_nisn = $santri->nisn;
             $data->judul_jurnal = $request->judul_jurnal;
             $data->deskripsi_jurnal = $request->deskripsi_jurnal;
-            $data->foto_dokumentasi_jurnal = $response;
+            // $data->foto_dokumentasi_jurnal = $response;
+            $data->foto_dokumentasi_jurnal = "https://res.cloudinary.com/smk-madinatul-quran/image/upload/v1624542446/xosf6hxy0ye7lmoopors.jpg";
             $data->tanggal_jurnal = $request->tanggal_jurnal;
 
             $result = $data->save();
             if ($result) {
-                return redirect()->route('jurnal')->with('success',"Jurnal Berhasil Tersimpan");
+                if ($request->kegiatan == "on") {
+                    $simpanKegiatan = $this->saveKegiatan($request,$santri->nisn,$request->tanggal_jurnal);
+                    if ($simpanKegiatan == "sukses") {
+                        return redirect()->route('jurnal')->with('success',"Jurnal & Kegiatan Berhasil Tersimpan");
+                    } else {
+                        return redirect()->route('jurnal')->with('error',"Jurnal Tersimpan Tetapi Kegiatan Gagal Tersimpan");
+                    }
+                    
+                } else {
+                    return redirect()->route('jurnal')->with('success',"Jurnal Berhasil Tersimpan");
+                }
             }else{
                 return redirect()->route('jurnal')->with('error',"Jurnal Gagal Tersimpan");
             }
         }
+
+        // if ($request->kegiatan == "on") {
+        //     return $request->dzikir_pagi;
+        // } else {
+        //     return "not";
+        // }
     }
 
     /**
@@ -193,8 +215,6 @@ class jurnalController extends Controller
                 $data->foto_dokumentasi_jurnal = $response;
             }
             
-            
-            
             $data->santri_nisn = $santri->nisn;
             $data->judul_jurnal = $request->judul_jurnal;
             $data->deskripsi_jurnal = $request->deskripsi_jurnal;
@@ -264,6 +284,37 @@ class jurnalController extends Controller
             }
         }else{
             return ["result"=>"ID tidak ditemukan"];
+        }
+    }
+
+    public function saveKegiatan($request,$nisn,$tgl)
+    {
+        $data = new kegiatan;
+        $data->santri_nisn = $nisn;
+        $data->dzikir_pagi = $this->cekData($request->dzikir_pagi);
+        $data->dzikir_petang = $this->cekData($request->dzikir_petang);
+        $data->subuh = $this->cekData($request->subuh);
+        $data->dzuhur = $this->cekData($request->dzuhur);
+        $data->ashar = $this->cekData($request->ashar);
+        $data->maghrib = $this->cekData($request->maghrib);
+        $data->isya = $this->cekData($request->isya);
+        $data->baca_alquran = $this->cekData($request->membaca_alquran);
+        $data->tanggal_kegiatan = $tgl;
+
+        $result = $data->save();
+        if ($result) {
+            return "sukses";
+        }else{
+            return "gagal";
+        }
+    }
+
+    public function cekData($data)
+    {
+        if ($data) {
+            return $data;
+        }else{
+            return "belum";
         }
     }
 }

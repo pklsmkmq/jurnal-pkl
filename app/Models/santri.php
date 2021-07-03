@@ -22,8 +22,13 @@ class santri extends Model
         return $this->belongsTo(pembimbing::class);
     }
 
-    // public function jurnal()
-    // {
-    //     return $this->hasMany(jurnal::class);
-    // }
+    public function jurnal()
+    {
+        return $this->hasMany(jurnal::class);
+    }
+
+    public function kegiatan()
+    {
+        return $this->hasMany(jurnal::class);
+    }
 }
