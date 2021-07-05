@@ -113,8 +113,8 @@ class jurnalController extends Controller
             $data->santri_nisn = $santri->nisn;
             $data->judul_jurnal = $request->judul_jurnal;
             $data->deskripsi_jurnal = $request->deskripsi_jurnal;
-            // $data->foto_dokumentasi_jurnal = $response;
-            $data->foto_dokumentasi_jurnal = "https://res.cloudinary.com/smk-madinatul-quran/image/upload/v1624542446/xosf6hxy0ye7lmoopors.jpg";
+            $data->foto_dokumentasi_jurnal = $response;
+            // $data->foto_dokumentasi_jurnal = "https://res.cloudinary.com/smk-madinatul-quran/image/upload/v1624542446/xosf6hxy0ye7lmoopors.jpg";
             $data->tanggal_jurnal = $request->tanggal_jurnal;
 
             $result = $data->save();
