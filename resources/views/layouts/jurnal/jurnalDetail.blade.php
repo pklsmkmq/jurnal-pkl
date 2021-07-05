@@ -11,13 +11,15 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Laporan Santri {{ $data->santri->nama_santri }}</h3>
+                <h3>Laporan Jurnal Santri</h3>
+                <h5>{{ $data->santri->nama_santri }}</h5>
                 <p class="text-subtitle text-muted">{{ $data->created_at->diffForHumans() }}</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('jurnal') }}">Jurnal</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Laporan Santri</li>
                     </ol>
                 </nav>
@@ -30,7 +32,7 @@
     <section id="multiple-column-form">
         <div class="row match-height">
             <div class="col-12">
-                <div class="card">
+                <div class="card shadow rounded">
                     <div class="card-header">
                         <h1>{{ $data->judul_jurnal }}</h1>
                     </div>
@@ -39,9 +41,17 @@
                             <a href="{{ $data->foto_dokumentasi_jurnal }}" target="_blank"><img src="{{ $data->foto_dokumentasi_jurnal }}" alt="jurnal santri" class="rounded d-block img-fluid detail-jurnal mb-5"></a>
                             <strong>Deskripsi Jurnal:</strong>
                             <p>{{ $data->deskripsi_jurnal }}</p>
-                            <br><br>
+                        </div>
+                    </div>
+                </div>
+                <div class="card shadow rounded">
+                    <div class="card-header">
+                        <h3>Kegiatan Harian</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
                             @if ($kegiatan)
-                                <h3>Kegiatan Harian</h3>
+                                <h5>Kegiatan Harian</h5>
                                 <div class="row">
                                     <strong>Dzikir</strong>
                                     <div class="col-lg-6">
