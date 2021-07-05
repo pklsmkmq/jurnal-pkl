@@ -11,14 +11,15 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Tambah Santri</h3>
+                <h3>Edit Santri</h3>
                 <p class="text-subtitle text-muted">Antum bisa menambah data santri disini</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Tambahkan Santri</li>
+                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('santri') }}">Santri</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Edit Santri</li>
                     </ol>
                 </nav>
             </div>
@@ -74,6 +75,18 @@
                                     </div>
                                     <div class="col-md-6 col-12">
                                         <div class="form-group">
+                                            <label for="angkatan">Angkatan</label>
+                                            <select class="form-control" id="angkatan" name="angkatan" placeholder="Pilih Angkatan" required>
+                                                @for ($i = 1; $i <= 20; $i++)
+                                                    <option value="{{ $i }}" @if ($data->angkatan == $i)
+                                                        selected
+                                                    @endif>{{ $i }}</option>
+                                                @endfor
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
                                             <label for="perusahaan-column">Perusahaan Santri</label>
                                             <input type="text" id="perusahaan-column" class="form-control"
                                                 placeholder="Masukkan Nama Perusahaan" name="perusahaan_santri" required value="{{ $data->perusahaan_santri }}">
@@ -89,9 +102,37 @@
                                     <div class="col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="pembimbing-column">Pembimbing</label>
-                                            <select name="pembimbing_id" id="pembimbing-column" class="form-control">
+                                            <select class="selectpicker form-control" id="pembimbing-column" data-container="body" data-live-search="true" name="pembimbing_id" title="Pilih Pembimbing" data-hide-disabled="true" required>
                                                 @foreach ($pemb as $item)
                                                     @if ($item->id == $data->pembimbing_id)
+                                                        <option value="{{ $item->id }}" selected>{{ $item->nama_pembimbing }}</option>
+                                                    @else
+                                                        <option value="{{ $item->id }}">{{ $item->nama_pembimbing }}</option>    
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="pembimbing-lap1">Pembimbing Lapangan 1</label>
+                                            <select class="selectpicker form-control" id="pembimbing-lap1" data-container="body" data-live-search="true" name="pembimbing_lapangan_1" title="Pilih Pembimbing" data-hide-disabled="true" required>
+                                                @foreach ($pemb as $item)
+                                                    @if ($item->id == $data->pembimbing_lapangan_1)
+                                                        <option value="{{ $item->id }}" selected>{{ $item->nama_pembimbing }}</option>
+                                                    @else
+                                                        <option value="{{ $item->id }}">{{ $item->nama_pembimbing }}</option>    
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="pembimbing-lap2">Pembimbing Lapangan 2</label>
+                                            <select class="selectpicker form-control" id="pembimbing-lap2" data-container="body" data-live-search="true" name="pembimbing_lapangan_2" title="Pilih Pembimbing" data-hide-disabled="true" required>
+                                                @foreach ($pemb as $item)
+                                                    @if ($item->id == $data->pembimbing_lapangan_2)
                                                         <option value="{{ $item->id }}" selected>{{ $item->nama_pembimbing }}</option>
                                                     @else
                                                         <option value="{{ $item->id }}">{{ $item->nama_pembimbing }}</option>    

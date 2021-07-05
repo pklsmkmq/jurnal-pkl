@@ -10,7 +10,7 @@ class santri extends Model
     use HasFactory;
     protected $primaryKey = 'nisn';
     protected $table = "santri";
-    protected $fillable = ["nisn","nama_santri","email_santri","telepon_santri","kelas_santri","perusahaan_santri","daerah_perusahaan_santri","pembimbing_id"];
+    protected $fillable = ["nisn","nama_santri","email_santri","telepon_santri","kelas_santri","perusahaan_santri","daerah_perusahaan_santri","pembimbing_id","pembimbing_lapangan_1","pembimbing_lapangan_2","angkatan"];
 
     public function walsan()
     {
