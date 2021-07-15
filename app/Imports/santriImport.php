@@ -21,7 +21,10 @@ class santriImport implements ToModel
             "kelas_santri"=>$row[4],
             "perusahaan_santri"=>$row[5],
             "daerah_perusahaan_santri"=>$row[6],
-            "pembimbing_id"=>$row[7]
+            "pembimbing_id"=>$row[7],
+            "pembimbing_lapangan_1"=>$row[8],
+            "pembimbing_lapangan_2"=>$row[9],
+            "angkatan"=>$row[10]
         ]);
     }
 }

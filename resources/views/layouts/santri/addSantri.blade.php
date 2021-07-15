@@ -18,6 +18,7 @@
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('santri') }}">Santri</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Tambahkan Santri</li>
                     </ol>
                 </nav>
@@ -68,9 +69,19 @@
                                     <div class="col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="kelas-column">Kelas Santri</label>
-                                            <select name="kelas_santri" class="form-control">
+                                            <select class="selectpicker form-control" id="kelas-column" data-container="body" data-live-search="true" name="kelas_santri" title="Pilih Kelas" data-hide-disabled="true" required>
                                                 <option value="XII RPL">XII RPL</option>
                                                 <option value="XII RPL">XII TKJ</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="angkatan">Angkatan</label>
+                                            <select class="form-control" id="angkatan" name="angkatan" placeholder="Pilih Angkatan" required>
+                                                @for ($i = 1; $i <= 20; $i++)
+                                                    <option value="{{ $i }}">{{ $i }}</option>
+                                                @endfor
                                             </select>
                                         </div>
                                     </div>
@@ -91,9 +102,27 @@
                                     <div class="col-md-6 col-12">
                                         <div class="form-group">
                                             <label for="pembimbing-column">Pembimbing</label>
-                                            {{-- <input type="number" id="pembimbing-column" class="form-control"
-                                                placeholder="Masukkan Pembimbing Id" name="pembimbing_id" required> --}}
-                                            <select name="pembimbing_id" id="pembimbing-column" class="form-control">
+                                            <select class="selectpicker form-control" id="pembimbing-column" data-container="body" data-live-search="true" name="pembimbing_id" title="Pilih Pembimbing" data-hide-disabled="true" required>
+                                                @foreach ($data as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->nama_pembimbing }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="pembimbing-column1">Pembimbing Lapangan 1</label>
+                                            <select class="selectpicker form-control" id="pembimbing-column1" data-container="body" data-live-search="true" name="pembimbing_lapangan_1" title="Pilih Pembimbing" data-hide-disabled="true" required>
+                                                @foreach ($data as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->nama_pembimbing }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="pembimbing-column2">Pembimbing Lapangan 2</label>
+                                            <select class="selectpicker form-control" id="pembimbing-column2" data-container="body" data-live-search="true" name="pembimbing_lapangan_2" title="Pilih Pembimbing" data-hide-disabled="true" required>
                                                 @foreach ($data as $item)
                                                     <option value="{{ $item->id }}">{{ $item->nama_pembimbing }}</option>
                                                 @endforeach

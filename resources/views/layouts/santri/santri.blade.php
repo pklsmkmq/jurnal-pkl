@@ -95,6 +95,9 @@
                     <p>Kolom 6 = Perusahaan Santri</p>
                     <p>Kolom 7 = Dearah Perusahaan</p>
                     <p>Kolom 8 = ID Pembimbing (bisa di lihat di data pembimbing)</p>
+                    <p>Kolom 9 = ID Pembimbing Lapangan 1 (bisa di lihat di data pembimbing)</p>
+                    <p>Kolom 10 = ID Pembimbing Lapangan 2 (bisa di lihat di data pembimbing)</p>
+                    <p>Kolom 11 = Angkatan</p>
                 </div>
             </div>
             <div class="modal-footer">

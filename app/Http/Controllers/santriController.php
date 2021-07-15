@@ -52,7 +52,10 @@ class santriController extends Controller
             "kelas_santri"=>"required",
             "perusahaan_santri"=>"required",
             "daerah_perusahaan_santri"=>"required",
-            "pembimbing_id"=>"required"
+            "pembimbing_id"=>"required",
+            "pembimbing_lapangan_1"=>"required",
+            "pembimbing_lapangan_2"=>"required",
+            "angkatan"=>"required",
         );
 
         $cek = Validator::make($request->all(),$rules);
@@ -75,6 +78,9 @@ class santriController extends Controller
             $data->perusahaan_santri = $request->perusahaan_santri;
             $data->daerah_perusahaan_santri = $request->daerah_perusahaan_santri;
             $data->pembimbing_id = $request->pembimbing_id;
+            $data->pembimbing_lapangan_1 = $request->pembimbing_lapangan_1;
+            $data->pembimbing_lapangan_2 = $request->pembimbing_lapangan_2;
+            $data->angkatan = $request->angkatan;
 
             $result = $data->save();
             if ($result) {
@@ -87,11 +93,9 @@ class santriController extends Controller
                 if($resultUser){
                     return redirect()->route('santri')->with('success',"Data Berhasil Tersimpan");
                 }else{
-                    // return ["result"=>"Data Gagal Tersimpan"];
                     return redirect()->route('santri')->with('error',"Data Gagal Tersimpan");
                 }
             }else{
-                // return ["result"=>"Data Gagal Tersimpan"];
                 return redirect()->route('santri')->with('error',"Data Gagal Tersimpan");
             }
         }
@@ -158,7 +162,10 @@ class santriController extends Controller
             "kelas_santri"=>"required",
             "perusahaan_santri"=>"required",
             "daerah_perusahaan_santri"=>"required",
-            "pembimbing_id"=>"required"
+            "pembimbing_id"=>"required",
+            "pembimbing_lapangan_1"=>"required",
+            "pembimbing_lapangan_2"=>"required",
+            "angkatan"=>"required",
         );
 
         $cek = Validator::make($request->all(),$rules);
@@ -192,6 +199,9 @@ class santriController extends Controller
             $data->perusahaan_santri = $request->perusahaan_santri;
             $data->daerah_perusahaan_santri = $request->daerah_perusahaan_santri;
             $data->pembimbing_id = $request->pembimbing_id;
+            $data->pembimbing_lapangan_1 = $request->pembimbing_lapangan_1;
+            $data->pembimbing_lapangan_2 = $request->pembimbing_lapangan_2;
+            $data->angkatan = $request->angkatan;
 
             $result = $data->save();
             if ($result) {
