@@ -56,7 +56,42 @@ class kunjunganController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = array(
+            "tanggal_kunjungan"=>"required",
+            "foto_dokumentasi_kunjungan"=>"required",
+            "keterangan_kunjungan"=>"required",
+            "nama_perusahaan_kunjungan"=>"required"
+        );
+
+        $cek = Validator::make($request->all(),$rules);
+        if($cek->fails()){
+            $errorString = implode(",",$cek->messages()->all());
+            return redirect()->route('addKunjungan')->with('warning',$errorString);
+        }else{
+            $email = Auth::user()->email;
+            $pembimbing = pembimbing::where('email_pembimbing',$email)->first();
+            $cekKe = kunjungan::where('pembimbing_id',$pembimbing->id)->where('nama_perusahaan_kunjungan',$request->nama_perusahaan_kunjungan)->count();
+            $kunjunganKe = $cekKe + 1;
+
+            $gambar = $request->file('foto_dokumentasi_kunjungan');
+            $response = cloudinary()->upload($gambar->path())->getSecurePath();
+            
+            $data = new kunjungan;
+            $data->pembimbing_id = $pembimbing->id;
+            $data->tanggal_kunjungan = $request->tanggal_kunjungan;
+            $data->keterangan_kunjungan = $request->keterangan_kunjungan;
+            $data->foto_dokumentasi_kunjungan = $response;
+            // $data->foto_dokumentasi_jurnal = "https://res.cloudinary.com/smk-madinatul-quran/image/upload/v1624542446/xosf6hxy0ye7lmoopors.jpg";
+            $data->nama_perusahaan_kunjungan = $request->nama_perusahaan_kunjungan;
+            $data->kunjungan_ke = $kunjunganKe;
+
+            $result = $data->save();
+            if ($result) {
+                return redirect()->route('kunjungan')->with('success',"Kunjungan Berhasil Tersimpan");
+            }else{
+                return redirect()->route('kunjungan')->with('error',"Kurnal Gagal Tersimpan");
+            }
+        }
     }
 
     /**

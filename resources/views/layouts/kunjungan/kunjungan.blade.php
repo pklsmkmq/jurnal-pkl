@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
                 <h3>Data Kunjungan PKL</h3>
-                <p class="text-subtitle text-muted">list Kunjungan PKL ke perusahaan</p>
+                <p class="text-subtitle text-muted">List Kunjungan PKL ke perusahaan</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -24,10 +24,10 @@
             </div>
         </div>
     </div>
-    <section class="section">
+    <section class="section shadow rounded">
         <div class="card">
             <div class="card-header">
-                <h3>Daftar Perusahaan Pembimbing</h3>
+                <h3>Daftar Perusahaan Kelompok Antum</h3>
             </div>
             <div class="card-body">
                 @include('layouts/massage')
@@ -55,7 +55,7 @@
         </div>
     </section>
 
-    <section class="section">
+    <section class="section  shadow rounded">
         <div class="card">
             <div class="card-header">
                 <h3>Daftar Riwayat Kunjungan</h3>

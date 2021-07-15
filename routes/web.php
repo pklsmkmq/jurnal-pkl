@@ -66,7 +66,7 @@ Route::middleware(['auth:sanctum', 'verified'])->prefix('pkl')->group(function (
         Route::get('/riwayat', [kunjunganController::class, 'riwayat'])->name('riwayatKunjungan');
         // Route::get('/detail/{id}', [kunjunganController::class, 'detail'])->name('kunjunganDetail');
         Route::get('/add', [kunjunganController::class, 'create'])->name('addKunjungan');
-        Route::post('/save', [jurnalController::class, 'store'])->name('saveKunjungan');
+        Route::post('/save', [kunjunganController::class, 'store'])->name('saveKunjungan');
         Route::get('/edit/{id}', [jurnalController::class, 'edit'])->name('editKunjungan');
         Route::put('/update/{id}', [jurnalController::class, 'update'])->name('updateKunjungan');
         Route::delete('/delete/{id}', [jurnalController::class, 'destroy'])->name('deleteKunjungan');

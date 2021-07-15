@@ -57,7 +57,7 @@
                                     <div class="col-md-12 col-12">
                                         <div class="form-group">
                                             <label for="foto-column">Foto Dokumentasi</label>
-                                            <input type="file" name="foto_dokumentasi_kunjungan" class="form-control" required>
+                                            <input type="file" id="foto-column" name="foto_dokumentasi_kunjungan" class="form-control" required>
                                         </div>
                                     </div>
                                     <div class="col-md-12 col-12">
