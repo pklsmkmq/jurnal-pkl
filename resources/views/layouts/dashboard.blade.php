@@ -81,6 +81,15 @@
                             </a>
                         </li>
 
+                        @if (auth()->user()->status == "pembimbing")
+                            <li class="sidebar-item  {{ (request()->segment(2) == 'kunjungan') ? 'active' : '' }}">
+                                <a href="{{ route('kunjungan') }}" class='sidebar-link'>
+                                    <i class="iconly-boldShow"></i>
+                                    <span>Kunjungan</span>
+                                </a>
+                            </li>
+                        @endif
+
                         <li class="sidebar-item  ">
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf

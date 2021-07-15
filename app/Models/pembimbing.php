@@ -14,4 +14,9 @@ class pembimbing extends Model
     {
         return $this->hasMany(santri::class);
     }
+
+    public function kunjungan()
+    {
+        return $this->hasMany(kunjungan::class);
+    }
 }

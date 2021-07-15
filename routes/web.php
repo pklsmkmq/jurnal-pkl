@@ -6,6 +6,7 @@ use App\Http\Controllers\santriController;
 use App\Http\Controllers\pembimbingController;
 use App\Http\Controllers\walsanController;
 use App\Http\Controllers\jurnalController;
+use App\Http\Controllers\kunjunganController;
 
 Route::get('/', function () {
     return view('auth/login');
@@ -58,5 +59,16 @@ Route::middleware(['auth:sanctum', 'verified'])->prefix('pkl')->group(function (
         Route::get('/edit/{id}', [jurnalController::class, 'edit'])->name('jurnalEdit');
         Route::put('/update/{id}', [jurnalController::class, 'update'])->name('updateJurnal');
         Route::delete('/delete/{id}', [jurnalController::class, 'destroy'])->name('deleteJurnal');
+    });
+
+    Route::prefix('kunjungan')->group(function () {
+        Route::get('/', [kunjunganController::class, 'index'])->name('kunjungan');
+        Route::get('/riwayat', [kunjunganController::class, 'riwayat'])->name('riwayatKunjungan');
+        // Route::get('/detail/{id}', [kunjunganController::class, 'detail'])->name('kunjunganDetail');
+        Route::get('/add', [kunjunganController::class, 'create'])->name('addKunjungan');
+        Route::post('/save', [jurnalController::class, 'store'])->name('saveKunjungan');
+        Route::get('/edit/{id}', [jurnalController::class, 'edit'])->name('editKunjungan');
+        Route::put('/update/{id}', [jurnalController::class, 'update'])->name('updateKunjungan');
+        Route::delete('/delete/{id}', [jurnalController::class, 'destroy'])->name('deleteKunjungan');
     });
 });
