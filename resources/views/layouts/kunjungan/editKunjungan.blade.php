@@ -11,15 +11,15 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Edit Wali santri</h3>
-                <p class="text-subtitle text-muted">Antum bisa mengedit data Wali santri disini</p>
+                <h3>Edit Kunjungan</h3>
+                <p class="text-subtitle text-muted">Antum bisa mengedit data Kunjungan disini</p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('walsan') }}">Walsan</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Edit Wali santri</li>
+                        <li class="breadcrumb-item"><a href="{{ route('kunjungan') }}">Kunjungan</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Edit Kunjungan</li>
                     </ol>
                 </nav>
             </div>
@@ -35,43 +35,41 @@
                     <div class="card-content">
                         <div class="card-body">
                             @include('layouts/massage')
-                            <form class="form" method="POST" action="{{ route('updateWalsan',$id = $data->id) }}">
+                            <form class="form" method="POST" action="{{ route('updateKunjungan',$id = $kunjungan->id) }}" enctype="multipart/form-data">
                                 @csrf
                                 @method("put")
                                 <div class="row">
                                     <div class="col-md-6 col-12">
                                         <div class="form-group">
-                                            <label for="nama-column">Nama Wali Santri</label>
-                                            <input type="text" id="nama-column" class="form-control"
-                                                placeholder="Masukkan Nama Wali Santri" name="nama_walsan" value="{{ $data->nama_walsan }}" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-12">
-                                        <div class="form-group">
-                                            <label for="email-column">Email Wali Santri</label>
-                                            <input type="email" id="email-column" class="form-control"
-                                                placeholder="Masukkan Email" name="email_walsan" value="{{ $data->email_walsan }}" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-12">
-                                        <div class="form-group">
-                                            <label for="telepon-column">Telepon Wali Santri</label>
-                                            <input type="text" id="telepon-column" class="form-control"
-                                                name="telepon_walsan" placeholder="Masukkan Telepon" value="{{ $data->telepon_walsan }}" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-12">
-                                        <div class="form-group">
-                                            <label for="telepon-column">Nama Santri</label>
-                                            <select class="selectpicker form-control" data-container="body" data-live-search="true" name="santri_nisn" title="Pilih Nama Santri" data-hide-disabled="true" required>
-                                                @foreach ($santri as $item)
-                                                    @if ($item->nisn == $data->santri_nisn)
-                                                        <option value="{{ $item->nisn }}" selected>{{ $item->nama_santri }}</option>
-                                                    @else
-                                                        <option value="{{ $item->nisn }}">{{ $item->nama_santri }}</option>
-                                                    @endif
+                                            <label for="pt-column">Nama Perusahaan</label>
+                                            <select class="selectpicker form-control" data-container="body" data-live-search="true" name="nama_perusahaan_kunjungan" title="Pilih Perusahaan Santri" data-hide-disabled="true" required>
+                                                @foreach ($data as $item)
+                                                    <option value="{{ $item->perusahaan_santri }}" @if ($kunjungan->nama_perusahaan_kunjungan == $item->perusahaan_santri)
+                                                        selected
+                                                    @endif>{{ $item->perusahaan_santri }}</option>
                                                 @endforeach
                                             </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="desc-column">Tanggal Kunjungan</label>
+                                            <input class="form-control" name="tanggal_kunjungan" type="date" value="{{ $kunjungan->tanggal_kunjungan }}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-12">
+                                        <div class="form-group">
+                                            <label for="foto-column">Foto Dokumentasi</label><br>
+                                            <img src="{{ $kunjungan->foto_dokumentasi_kunjungan }}" alt="Foto Dokumentasi" class="img-responsive mb-3" style="width: 20%"><br>
+                                            <label for="foto-column">Ganti Foto</label>
+                                            <input type="file" id="foto-column" name="foto_dokumentasi_kunjungan" class="form-control">
+                                            <span style="font-style: italic; font-size: 12px; font-weight: bold;">*Kosongan jika antum tidak ingin mengganti foto</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-12">
+                                        <div class="form-group">
+                                            <label for="desc-column">Deskripsi Jurnal Harian</label>
+                                            <textarea class="form-control" name="keterangan_kunjungan" placeholder="Jelaskan Kunjungan Antum Hari Ini" rows="5" required>{{ $kunjungan->keterangan_kunjungan }}</textarea>
                                         </div>
                                     </div>
                                     <div class="col-12 d-flex justify-content-end">

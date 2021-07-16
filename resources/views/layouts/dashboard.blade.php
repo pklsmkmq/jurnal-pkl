@@ -60,7 +60,7 @@
                             <li class="sidebar-item  {{ (request()->segment(2) == 'pembimbing') ? 'active' : '' }}">
                                 <a href="{{ route('pembimbing') }}" class='sidebar-link'>
                                     <i class="bi bi-people-fill"></i>
-                                    <span>Pendamping</span>
+                                    <span>Pembimbing</span>
                                 </a>
                             </li>
                         @endif
@@ -81,7 +81,7 @@
                             </a>
                         </li>
 
-                        @if (auth()->user()->status == "pembimbing")
+                        @if (auth()->user()->status != "santri")
                             <li class="sidebar-item  {{ (request()->segment(2) == 'kunjungan') ? 'active' : '' }}">
                                 <a href="{{ route('kunjungan') }}" class='sidebar-link'>
                                     <i class="iconly-boldShow"></i>

@@ -8,6 +8,7 @@ use App\Models\pembimbing;
 use App\Models\jurnal;
 use App\Models\walsan;
 use App\Models\User;
+use App\Models\kunjungan;
 use Auth;
 
 class userController extends Controller
@@ -17,7 +18,7 @@ class userController extends Controller
         if(Auth::user()->status == "admin"){
             $data1 = santri::count();
             $data2 = pembimbing::count();
-            $data3 = walsan::count();
+            $data3 = kunjungan::count();
             $data4 = jurnal::count();
 
             $recentJurnal = jurnal::orderBy('tanggal_jurnal', 'desc')->with('santri')->limit(3)->get();
@@ -33,10 +34,13 @@ class userController extends Controller
             $pembimbing = pembimbing::where('id',$santri->pembimbing_id)->first();
             $walsan = walsan::where('santri_nisn',$santri->nisn)->first();
             $jurnal = jurnal::where('santri_nisn',$santri->nisn)->count();
+            $kunjungan = kunjungan::where('pembimbing_id',$santri->pembimbing_lapangan_1)->where('nama_perusahaan_kunjungan',$santri->perusahaan_santri)->count();
+            $pem1 = $this->getNamePembimbing($santri->pembimbing_lapangan_1);
+            $pem2 = $this->getNamePembimbing($santri->pembimbing_lapangan_2);
             
-            $data1 = 0;
+            $data1 = $kunjungan;
             $data2 = $pembimbing->nama_pembimbing;
-            $data3 = $walsan->nama_walsan;
+            $data3 = $pem1 . " & " . $pem2;
             $data4 = $jurnal;
             $recentJurnal = jurnal::where('santri_nisn',$santri->nisn)->orderBy('tanggal_jurnal', 'desc')->with('santri')->limit(3)->get();
             if($recentJurnal){
@@ -54,10 +58,12 @@ class userController extends Controller
                 $jurnal = jurnal::where('santri_nisn',$key->nisn)->count();
                 $jm = $jm + $jurnal; 
             }
+            $dt2 = santri::where('pembimbing_id',$pembimbing->id)->groupBy('perusahaan_santri')->get();
+            $dt3 = kunjungan::where('pembimbing_id',$pembimbing->id)->count();
 
             $data1 = santri::where('pembimbing_id',$pembimbing->id)->count();
-            $data2 = 0;
-            $data3 = 0;
+            $data2 = (count($dt2) * 3) - $dt3;
+            $data3 = $dt3;
             $data4 = $jm;
             $recentJurnal = jurnal::with('santri');
             foreach ($dt as $key) {
@@ -76,10 +82,13 @@ class userController extends Controller
             $walsan = walsan::where('email_walsan',Auth::user()->email)->with('santri')->first();
             $pembimbing = pembimbing::where('id',$walsan->santri->pembimbing_id)->first();
             $jurnal = jurnal::where('santri_nisn',$walsan->santri_nisn)->count();
+            $kunjungan = kunjungan::where('pembimbing_id',$walsan->santri->pembimbing_lapangan_1)->where('nama_perusahaan_kunjungan',$walsan->santri->perusahaan_santri)->count();
+            $pem1 = $this->getNamePembimbing($walsan->santri->pembimbing_lapangan_1);
+            $pem2 = $this->getNamePembimbing($walsan->santri->pembimbing_lapangan_2);
 
-            $data1 = 0;
+            $data1 = $kunjungan;
             $data2 = $pembimbing->nama_pembimbing;
-            $data3 = $walsan->santri->nama_santri;
+            $data3 = $pem1 . " & " . $pem2;
             $data4 = $jurnal;
             $recentJurnal = jurnal::where('santri_nisn',$walsan->santri_nisn)->orderBy('tanggal_jurnal', 'desc')->with('santri')->limit(3)->get();
             if($recentJurnal){
@@ -163,6 +172,12 @@ class userController extends Controller
         }else{
             return abort(404);
         }
+    }
+
+    public function getNamePembimbing($id)
+    {
+        $data = pembimbing::where('id',$id)->first();
+        return $data->nama_pembimbing;
     }
 
     public function xnx()

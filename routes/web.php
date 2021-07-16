@@ -64,11 +64,11 @@ Route::middleware(['auth:sanctum', 'verified'])->prefix('pkl')->group(function (
     Route::prefix('kunjungan')->group(function () {
         Route::get('/', [kunjunganController::class, 'index'])->name('kunjungan');
         Route::get('/riwayat', [kunjunganController::class, 'riwayat'])->name('riwayatKunjungan');
-        // Route::get('/detail/{id}', [kunjunganController::class, 'detail'])->name('kunjunganDetail');
+        Route::get('/detail/{kunjungan:id}', [kunjunganController::class, 'detail'])->name('kunjunganDetail');
         Route::get('/add', [kunjunganController::class, 'create'])->name('addKunjungan');
         Route::post('/save', [kunjunganController::class, 'store'])->name('saveKunjungan');
-        Route::get('/edit/{id}', [jurnalController::class, 'edit'])->name('editKunjungan');
-        Route::put('/update/{id}', [jurnalController::class, 'update'])->name('updateKunjungan');
-        Route::delete('/delete/{id}', [jurnalController::class, 'destroy'])->name('deleteKunjungan');
+        Route::get('/edit/{id}', [kunjunganController::class, 'edit'])->name('editKunjungan');
+        Route::put('/update/{id}', [kunjunganController::class, 'update'])->name('updateKunjungan');
+        Route::delete('/delete/{id}', [kunjunganController::class, 'destroy'])->name('deleteKunjungan');
     });
 });

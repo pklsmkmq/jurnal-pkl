@@ -8,7 +8,7 @@
 </header>
 
 <div class="page-heading">
-    <h4>أَهْلًا وَسَهْلًا</h4>
+    <h2>أَهْلًا وَسَهْلًا</h2>
     <h3>{{ auth()->user()->name }}</h3>
 </div>
 <div class="page-content">
@@ -75,17 +75,17 @@
                                     </div>
                                 </div>
                                 <div class="col-md-8 col-8">
-                                    <h6 class="text-muted font-semibold text-front">
-                                        @if (auth()->user()->status == "pembimbing")
+                                    <h6 class="text-muted font-semibold text-front" @if (auth()->user()->status == "santri" || auth()->user()->status == "walsan")
+                                        style="font-size: 12px"
+                                    @endif >
+                                        @if (auth()->user()->status == "pembimbing" || auth()->user()->status == "admin")
                                             Kunjungan Selesai
-                                        @elseif(auth()->user()->status == "walsan")
-                                            Nama Santri
                                         @else
-                                            Wali Santri
+                                            Pembimbing Lapangan
                                         @endif
                                     </h6>
                                     @if (auth()->user()->status == "santri" || auth()->user()->status == "walsan")
-                                        <h6 class="font-extrabold mb-0">{{ $data3 }}</h6>
+                                        <h6 class="font-extrabold mb-0" style="font-size: 12px">{{ $data3 }}</h6>
                                     @else
                                        <h2 class="font-extrabold mb-0">{{ $data3 }}</h2>
                                     @endif

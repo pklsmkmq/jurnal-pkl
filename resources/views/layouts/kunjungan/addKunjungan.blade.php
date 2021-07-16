@@ -35,7 +35,7 @@
                     <div class="card-content">
                         <div class="card-body">
                             @include('layouts/massage')
-                            <form class="form" method="POST" action="{{ route('saveKunjungan') }}">
+                            <form class="form" method="POST" action="{{ route('saveKunjungan') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-6 col-12">
@@ -63,7 +63,7 @@
                                     <div class="col-md-12 col-12">
                                         <div class="form-group">
                                             <label for="desc-column">Deskripsi Jurnal Harian</label>
-                                            <textarea class="form-control" name="keterangan_kunjungan" placeholder="Jelaskan Kunjungan Antum Hari Ini" required></textarea>
+                                            <textarea class="form-control" name="keterangan_kunjungan" placeholder="Jelaskan Kunjungan Antum Hari Ini" rows="5" required></textarea>
                                         </div>
                                     </div>
                                     <div class="col-12 d-flex justify-content-end">

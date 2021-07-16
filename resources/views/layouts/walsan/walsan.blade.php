@@ -6,7 +6,9 @@
         <i class="bi bi-justify fs-3"></i>
     </a>
 </header>
-
+@php
+    $nomor = 0;
+@endphp
 <div class="page-heading">
     <div class="page-title">
         <div class="row">
@@ -34,7 +36,7 @@
                 <table class="table table-striped" id="table1">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>No</th>
                             <th>Nama Wali Santri</th>
                             <th>Nama Santri</th>
                             <th>Email</th>
@@ -44,8 +46,11 @@
                     </thead>
                     <tbody>
                         @foreach ($data as $item)
+                            @php
+                                $nomor++;
+                            @endphp
                             <tr>
-                                <td>{{ $item->id }}</td>
+                                <td>{{ $nomor }}</td>
                                 <td>{{ $item->nama_walsan }}</td>
                                 <td>{{ $item->nama_walsan }}</td>
                                 <td>{{ $item->email_walsan }}</td>
