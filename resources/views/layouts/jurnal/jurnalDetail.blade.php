@@ -51,7 +51,6 @@
                     <div class="card-content">
                         <div class="card-body">
                             @if ($kegiatan)
-                                <h5>Kegiatan Harian</h5>
                                 <div class="row">
                                     <strong>Dzikir</strong>
                                     <div class="col-lg-6">

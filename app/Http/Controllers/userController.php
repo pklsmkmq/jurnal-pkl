@@ -65,18 +65,22 @@ class userController extends Controller
             $data2 = (count($dt2) * 3) - $dt3;
             $data3 = $dt3;
             $data4 = $jm;
-            $recentJurnal = jurnal::with('santri');
-            foreach ($dt as $key) {
-                $recentJurnal = $recentJurnal->orWhere('santri_nisn',$key->nisn);
-            }
-
-            $recentJurnal = $recentJurnal->orderBy('tanggal_jurnal', 'desc')->limit(3)->get();
-            if($recentJurnal){
-                for ($i=0; $i < count($recentJurnal); $i++) { 
-                    $recentJurnal[$i]->avatar = $this->getName($recentJurnal[$i]->santri->nama_santri);
-                }
-            }else{
+            if(count($dt) == 0){
                 $recentJurnal = null;
+            }else{
+                $recentJurnal = jurnal::with('santri');
+                foreach ($dt as $key) {
+                    $recentJurnal = $recentJurnal->orWhere('santri_nisn',$key->nisn);
+                }
+
+                $recentJurnal = $recentJurnal->orderBy('tanggal_jurnal', 'desc')->limit(3)->get();
+                if($recentJurnal){
+                    for ($i=0; $i < count($recentJurnal); $i++) { 
+                        $recentJurnal[$i]->avatar = $this->getName($recentJurnal[$i]->santri->nama_santri);
+                    }
+                }else{
+                    $recentJurnal = null;
+                }
             }
         }elseif (Auth::user()->status == "walsan") {
             $walsan = walsan::where('email_walsan',Auth::user()->email)->with('santri')->first();
@@ -143,11 +147,15 @@ class userController extends Controller
             if (Auth::user()->status == "santri") {
                 $data = $data->where('santri_nisn',$santri->nisn)->count();
             }elseif (Auth::user()->status == "pembimbing") {
-                $data = $data->where(function ($q) use ($dt){
-                    foreach ($dt as $key) {
-                        $q->orWhere('santri_nisn',$key->nisn);
-                    }
-                })->count();
+                if(count($dt) == 0){
+                    $data = 0;
+                }else{
+                    $data = $data->where(function ($q) use ($dt){
+                        foreach ($dt as $key) {
+                            $q->orWhere('santri_nisn',$key->nisn);
+                        }
+                    })->count();
+                }
             }elseif (Auth::user()->status == "walsan") {
                 $data = $data->where('santri_nisn',$walsan->santri_nisn)->count();
             }

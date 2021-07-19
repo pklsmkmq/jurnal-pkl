@@ -208,20 +208,21 @@
                     <h4>Laporan Jurnal Baru Saja</h4>
                 </div>
                 <div class="card-content pb-4">
-                    @if (count($recentJurnal) == 0)
+                    @if ($recentJurnal == null)
                         <p style="text-align: center">Data Kosong</p>
+                    @else
+                        @foreach ($recentJurnal as $item)
+                            <div class="recent-message d-flex px-4 py-3">
+                                <div class="avatar avatar-lg mr-3">
+                                    <div class="rounded bg-primary img-avatar">{{ $item->avatar }}</div>
+                                </div>
+                                <div class="name ms-4">
+                                    <h5 class="mb-1">{{ $item->santri->nama_santri }}</h5>
+                                    <h6 class="text-muted mb-0">{{ $item->created_at->diffForHumans() }}</h6>
+                                </div>
+                            </div>
+                        @endforeach
                     @endif
-                    @foreach ($recentJurnal as $item)
-                        <div class="recent-message d-flex px-4 py-3">
-                            <div class="avatar avatar-lg mr-3">
-                                <div class="rounded bg-primary img-avatar">{{ $item->avatar }}</div>
-                            </div>
-                            <div class="name ms-4">
-                                <h5 class="mb-1">{{ $item->santri->nama_santri }}</h5>
-                                <h6 class="text-muted mb-0">{{ $item->created_at->diffForHumans() }}</h6>
-                            </div>
-                        </div>
-                    @endforeach
                     <div class="px-4">
                         <a href="{{ route('jurnal') }}"><button class='btn btn-block btn-xl btn-light-primary font-bold mt-3'>Lihat Selengkapnya</button></a>
                     </div>

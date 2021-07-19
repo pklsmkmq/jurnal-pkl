@@ -27,11 +27,15 @@ class jurnalController extends Controller
         }elseif($user == "pembimbing"){
             $guru = pembimbing::where('email_pembimbing',Auth::user()->email)->first();
             $santri = santri::where('pembimbing_id',$guru->id)->get();
-            $data = jurnal::with('santri');
-            foreach ($santri as $item) {
-                $data = $data->orWhere('santri_nisn',$item->nisn);
+            if(count($santri) == 0){
+                $data = [];
+            }else{
+                $data = jurnal::with('santri');
+                foreach ($santri as $item) {
+                    $data = $data->orWhere('santri_nisn',$item->nisn);
+                }
+                $data = $data->orderBy('tanggal_jurnal', 'desc')->get();
             }
-            $data = $data->orderBy('tanggal_jurnal', 'desc')->get();
         }elseif ($user == "walsan") {
             $walsan = walsan::where('email_walsan',Auth::user()->email)->first();
             $data = jurnal::where('santri_nisn',$walsan->santri_nisn)->orderBy('tanggal_jurnal', 'desc')->with('santri')->get();
