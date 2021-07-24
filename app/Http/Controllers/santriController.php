@@ -11,6 +11,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Models\User;
 use App\Models\pembimbing;
 use App\Models\jurnal;
+use Auth;
 
 class santriController extends Controller
 {
@@ -21,8 +22,34 @@ class santriController extends Controller
      */
     public function index(Request $request)
     {
-        $data = santri::get();
-        return view('layouts/santri/santri',compact('data'));
+        if(Auth::user()->status == "admin"){
+            $dt = santri::get();
+            $data = array();
+            foreach ($dt as $key) {
+                $cek = jurnal::where('santri_nisn', $key->nisn)->count();
+                $key->jumlah = $cek;
+                array_push($data,$key);
+            }
+            return view('layouts/santri/santri',compact('data'));
+        }elseif (Auth::user()->status == "pembimbing") {
+            $email = Auth::user()->email;
+            $pembimbing = pembimbing::where('email_pembimbing',$email)->first();
+            $dt = santri::where('pembimbing_id',$pembimbing->id)->get();
+            $dataPT = santri::where('pembimbing_lapangan_1',$pembimbing->id)->orWhere('pembimbing_lapangan_2',$pembimbing->id)->get();
+            $data = array();
+            foreach ($dt as $key) {
+                $cek = jurnal::where('santri_nisn', $key->nisn)->count();
+                $key->jumlah = $cek;
+                array_push($data,$key);
+            }
+            return view('layouts/santri/santri',[
+                "data"=>$data,
+                "dataPT"=>$dataPT
+            ]);
+        }else {
+            return abort(404);
+        }
+        
     }
 
     /**
@@ -32,6 +59,7 @@ class santriController extends Controller
      */
     public function create()
     {
+        $this->cekAdmin();
         $data = pembimbing::get();
         return view('layouts/santri/addSantri',compact('data'));
     }
@@ -44,6 +72,7 @@ class santriController extends Controller
      */
     public function store(Request $request)
     {
+        $this->cekAdmin();
         $rules = array(
             "nisn"=>"required|unique:santri",
             "nama_santri"=>"required",
@@ -109,6 +138,7 @@ class santriController extends Controller
      */
     public function show($id)
     {
+        $this->cekAdmin();
         $data = santri::where('nisn',$id)->first();
         
         if($data){
@@ -126,6 +156,7 @@ class santriController extends Controller
      */
     public function edit($santri)
     {
+        $this->cekAdmin();
         $data = santri::where('nisn',$santri)->first();
         $pemb = pembimbing::get();
         
@@ -148,6 +179,7 @@ class santriController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->cekAdmin();
         $updateEmail = false;
         $cekNisn = santri::where('nisn',$id)->first();
 
@@ -220,6 +252,7 @@ class santriController extends Controller
      */
     public function destroy($id)
     {
+        $this->cekAdmin();
         $data = santri::where('nisn',$id)->first();
         
         if($data){
@@ -247,6 +280,7 @@ class santriController extends Controller
 
     public function uploadExcel(Request $request)
     {
+        $this->cekAdmin();
         $rules = array(
             "file"=>"required",
         );
@@ -273,10 +307,18 @@ class santriController extends Controller
 
     public function contohFile()
     {
+        $this->cekAdmin();
         $filePath = public_path("data.xlsx");
         $headers = ['Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
         $fileName = 'formatUpload.xlsx';
 
         return response()->download($filePath, $fileName, $headers);
+    }
+
+    public function cekAdmin()
+    {
+        if(Auth::user()->status != "admin"){
+            return abort(404);
+        }
     }
 }

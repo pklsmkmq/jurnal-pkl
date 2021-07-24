@@ -69,7 +69,7 @@
                 </div>
                 <div class="card-body">
                     @include('layouts/massage')
-                    <table class="table table-striped" id="table1">
+                    <table class="table table-striped" id="table2">
                         <thead>
                             <tr>
                                 <th>No</th>

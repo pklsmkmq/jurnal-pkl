@@ -24,12 +24,18 @@
             </div>
         </div>
     </div>
-    <section class="section">
+    <section class="section shadow">
         <div class="card">
-            <div class="card-header">
-                <a href="{{ route('addSantri') }}"><button class="btn btn-outline-primary">Tambah Santri</button></a>
-                <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#uploadSantri">Tambah Banyak Santri</button>
-            </div>
+            @if (auth()->user()->status == "admin")
+                <div class="card-header">
+                    <a href="{{ route('addSantri') }}"><button class="btn btn-outline-primary">Tambah Santri</button></a>
+                    <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#uploadSantri">Tambah Banyak Santri</button>
+                </div>
+            @else
+                <div class="card-header">
+                    <h3>Daftar Santri Bimbingan Laporan</h3>
+                </div>
+            @endif
             <div class="card-body">
                 @include('layouts/massage')
                 <table class="table table-striped" id="table1">
@@ -40,7 +46,10 @@
                             <th>Kelas</th>
                             <th>Perusahaan</th>
                             <th>Kota</th>
-                            <th>Aksi</th>
+                            <th>Jumlah Laporan</th>
+                            @if (auth()->user()->status == "admin")
+                                <th>Aksi</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -51,15 +60,18 @@
                                 <td>{{ $item->kelas_santri }}</td>
                                 <td>{{ $item->perusahaan_santri }}</td>
                                 <td>{{ $item->daerah_perusahaan_santri }}</td>
-                                <td>
-                                    <a href="{{ route('jurnalSantri',$nisn = $item->nisn) }}"><button class="btn btn-secondary mb-1 float-left mr-1">Jurnal</button></a>
-                                    <a href="{{ route('editSantri',$nisn = $item->nisn) }}"><button class="btn btn-primary mb-1 float-left mr-1">Edit</button></a>
-                                    <form action="{{ route('deleteSantri',$nisn = $item->nisn) }}" method="post">
-                                      @csrf
-                                      @method("delete")
-                                      <button class="btn btn-danger" type="submit">Delete</button>
-                                  </form>
-                                </td>
+                                <td><center>{{ $item->jumlah }}</center></td>
+                                @if (auth()->user()->status == "admin")
+                                    <td>
+                                        <a href="{{ route('jurnalSantri',$nisn = $item->nisn) }}"><button class="btn btn-secondary mb-1 float-left mr-1">Jurnal</button></a>
+                                        <a href="{{ route('editSantri',$nisn = $item->nisn) }}"><button class="btn btn-primary mb-1 float-left mr-1">Edit</button></a>
+                                        <form action="{{ route('deleteSantri',$nisn = $item->nisn) }}" method="post">
+                                        @csrf
+                                        @method("delete")
+                                        <button class="btn btn-danger" type="submit">Delete</button>
+                                    </form>
+                                    </td>
+                                @endif
                             </tr>
                         @endforeach
                     </tbody>
@@ -68,6 +80,42 @@
         </div>
 
     </section>
+
+    @if (auth()->user()->status == "pembimbing")
+        <section class="section shadow">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Daftar Santri Bimbingan Perusahaan</h3>
+                </div>
+                <div class="card-body">
+                    @include('layouts/massage')
+                    <table class="table table-striped" id="table2">
+                        <thead>
+                            <tr>
+                                <th>Nisn</th>
+                                <th>Nama</th>
+                                <th>Kelas</th>
+                                <th>Perusahaan</th>
+                                <th>Kota</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($dataPT as $item)
+                                <tr>
+                                    <td>{{ $item->nisn }}</td>
+                                    <td>{{ $item->nama_santri }}</td>
+                                    <td>{{ $item->kelas_santri }}</td>
+                                    <td>{{ $item->perusahaan_santri }}</td>
+                                    <td>{{ $item->daerah_perusahaan_santri }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </section>
+    @endif
 </div>
 
 @include('layouts/footer')

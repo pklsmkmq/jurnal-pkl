@@ -47,7 +47,7 @@
                             </a>
                         </li>
 
-                        @if (auth()->user()->status == "admin")
+                        @if (auth()->user()->status == "admin" || auth()->user()->status == "pembimbing")
                             <li class="sidebar-item  {{ (request()->segment(2) == 'santri') ? 'active' : '' }}">
                                 <a href="{{ route('santri') }}" class='sidebar-link'>
                                     <i class="bi bi-person-badge-fill"></i>
@@ -125,6 +125,9 @@
         // Simple Datatable
         let table1 = document.querySelector('#table1');
         let dataTable = new simpleDatatables.DataTable(table1);
+
+        let table2 = document.querySelector('#table2');
+        let dataTable2 = new simpleDatatables.DataTable(table2);
     </script>
     <script src="{{ url('assets/js/main.js') }}"></script>
 

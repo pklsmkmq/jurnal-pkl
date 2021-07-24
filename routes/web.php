@@ -21,7 +21,7 @@ Route::middleware(['auth:sanctum', 'verified'])->prefix('pkl')->group(function (
     Route::get('dashboard', [userController::class, 'dashboard'])->name('dashboard');
     Route::get('xyz', [userController::class, 'getBulan'])->name('xyz');
 
-    Route::middleware(['admin'])->prefix('santri')->group(function () {
+    Route::prefix('santri')->group(function () {
         Route::get('/', [santriController::class, 'index'])->name('santri');
         Route::get('/add', [santriController::class, 'create'])->name('addSantri');
         Route::post('/save', [santriController::class, 'store'])->name('saveSantri');
