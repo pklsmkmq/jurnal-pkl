@@ -102,7 +102,7 @@
                         <tbody>
                             @foreach ($dataPT as $item)
                                 <tr>
-                                    <td>{{ $item->nisn }}</td>
+                                    <td>{{ sprintf("%07d", $item->nisn) }}</td>
                                     <td>{{ $item->nama_santri }}</td>
                                     <td>{{ $item->kelas_santri }}</td>
                                     <td>{{ $item->perusahaan_santri }}</td>

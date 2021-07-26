@@ -11,6 +11,7 @@ class santri extends Model
     protected $primaryKey = 'nisn';
     protected $table = "santri";
     protected $fillable = ["nisn","nama_santri","email_santri","telepon_santri","kelas_santri","perusahaan_santri","daerah_perusahaan_santri","pembimbing_id","pembimbing_lapangan_1","pembimbing_lapangan_2","angkatan"];
+    protected $keyType = 'string';
 
     public function walsan()
     {
