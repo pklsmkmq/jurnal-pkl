@@ -9,6 +9,7 @@ class jurnal extends Model
 {
     use HasFactory;
     protected $table = "jurnal";
+    protected $keyType = 'string';
 
     public function santri()
     {
