@@ -30,6 +30,7 @@
         <div class="card">
             <div class="card-header">
                 <a href="{{ route('addWalsan') }}"><button class="btn btn-outline-primary">Tambah Wali Santri</button></a>
+                <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#uploadWalsan">Tambah Banyak Wali Santri</button>
             </div>
             <div class="card-body">
                 @include('layouts/massage')
@@ -74,5 +75,35 @@
 </div>
 
 @include('layouts/footer')
+
+<div class="modal fade" id="uploadWalsan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form action="{{ route('uploadWalsan') }}" class="form" method="POST" enctype="multipart/form-data">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Upload Data Walsan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @csrf
+                <div class="form-group">
+                    <label for="upload-column">Masukkan File XLSX Disini</label>
+                    <input type="file" id="upload-column" class="form-control"
+                        placeholder="Masukkan File" name="file" required>
+                    <p>Contoh format xlsx bisa di download <a href="{{ route('contohFileWalsan') }}"><strong>Disini</strong></a></p>
+                    <p>Kolom 1 = Nisn Santri</p>
+                    <p>Kolom 2 = Nama Walsan</p>
+                    <p>Kolom 3 = Email Walsan</p>
+                    <p>Kolom 4 = Nomor Telepon Walsan</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Upload</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
 @endsection

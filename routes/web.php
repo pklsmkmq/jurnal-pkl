@@ -48,6 +48,8 @@ Route::middleware(['auth:sanctum', 'verified'])->prefix('pkl')->group(function (
         Route::get('/edit/{walsan:id}', [walsanController::class, 'edit'])->name('editWalsan');
         Route::put('/update/{walsan:id}', [walsanController::class, 'update'])->name('updateWalsan');
         Route::delete('/delete/{walsan:id}', [walsanController::class, 'destroy'])->name('deleteWalsan');
+        Route::post('/upload', [walsanController::class, 'uploadExcel'])->name('uploadWalsan');
+        Route::get('/contoh', [walsanController::class, 'contohFile'])->name('contohFileWalsan');
     });
 
     Route::prefix('jurnal')->group(function () {

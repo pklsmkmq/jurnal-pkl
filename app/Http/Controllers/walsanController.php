@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\santri;
 use App\Models\walsan;
 use App\Models\User;
+use App\Imports\walsanImport;
+use App\Imports\userWalsanImport;
+use Maatwebsite\Excel\Facades\Excel;
 use Validator;
 
 class walsanController extends Controller
@@ -214,5 +217,40 @@ class walsanController extends Controller
         }else{
             return abort(404);
         }
+    }
+
+    public function uploadExcel(Request $request)
+    {
+        $rules = array(
+            "file"=>"required",
+        );
+
+        $cek = Validator::make($request->all(),$rules);
+
+        if($cek->fails()){
+            $errorString = implode(",",$cek->messages()->all());
+            return redirect()->route('walsan')->with('warning',$errorString);
+        }else{
+            $data = Excel::import(new walsanImport, $request->file('file')->store('temp'));
+            if ($data) {
+                $dataUser = Excel::import(new userWalsanImport, $request->file('file')->store('temp'));
+                if ($dataUser) {
+                    return redirect()->route('walsan')->with('success',"Berhasil Mengupload Data");
+                }else{
+                    return redirect()->route('walsan')->with('error',"Gagal Mengupload Data");
+                }
+            } else {
+                return redirect()->route('walsan')->with('error',"Gagal Mengupload Data");
+            }
+        }
+    }
+
+    public function contohFile()
+    {
+        $filePath = public_path("data_walsan.xlsx");
+        $headers = ['Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
+        $fileName = 'formatUploadWalsan.xlsx';
+
+        return response()->download($filePath, $fileName, $headers);
     }
 }

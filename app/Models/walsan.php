@@ -9,6 +9,7 @@ class walsan extends Model
 {
     use HasFactory;
     protected $table = "walsan";
+    protected $fillable = ["santri_nisn","nama_walsan","email_walsan","telepon_walsan"];
 
     public function santri()
     {
