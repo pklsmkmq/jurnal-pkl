@@ -14,7 +14,7 @@ class ChangeSantriNisnColumnType extends Migration
     public function up()
     {
         Schema::table('santri', function ($table) {
-            $table->string('time')->change();
+            $table->string('nisn')->change();
         });
     }
 
