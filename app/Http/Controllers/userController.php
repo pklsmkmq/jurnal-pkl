@@ -21,13 +21,17 @@ class userController extends Controller
             $data3 = kunjungan::count();
             $data4 = jurnal::count();
 
-            $recentJurnal = jurnal::orderBy('tanggal_jurnal', 'desc')->with('santri')->limit(3)->get();
-            if($recentJurnal){
-                for ($i=0; $i < count($recentJurnal); $i++) { 
-                    $recentJurnal[$i]->avatar = $this->getName($recentJurnal[$i]->santri->nama_santri);
-                }
+            if($data4 == 0){
+                $recentJurnal = null;    
             }else{
-                $recentJurnal = null;
+                $recentJurnal = jurnal::orderBy('tanggal_jurnal', 'desc')->with('santri')->limit(3)->get();
+                if($recentJurnal){
+                    for ($i=0; $i < count($recentJurnal); $i++) { 
+                        $recentJurnal[$i]->avatar = $this->getName($recentJurnal[$i]->santri->nama_santri);
+                    }
+                }else{
+                    $recentJurnal = null;
+                }
             }
         }elseif (Auth::user()->status == "santri") {
             $santri = santri::where('email_santri',Auth::user()->email)->first();

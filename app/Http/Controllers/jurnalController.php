@@ -37,10 +37,20 @@ class jurnalController extends Controller
                 $data = $data->orderBy('tanggal_jurnal', 'desc')->get();
             }
         }elseif ($user == "walsan") {
-            $walsan = walsan::where('email_walsan',Auth::user()->email)->first();
-            $data = jurnal::where('santri_nisn',$walsan->santri_nisn)->orderBy('tanggal_jurnal', 'desc')->with('santri')->get();
+            $cek = jurnal::count();
+            if ($cek == 0) {
+                $data = null;
+            }else{
+                $walsan = walsan::where('email_walsan',Auth::user()->email)->first();
+                $data = jurnal::where('santri_nisn',$walsan->santri_nisn)->orderBy('tanggal_jurnal', 'desc')->with('santri')->get();
+            }
         }else{
-            $data = jurnal::with('santri')->orderBy('tanggal_jurnal', 'desc')->get();
+            $cek = jurnal::count();
+            if ($cek == 0) {
+                $data = null;
+            }else{
+                $data = jurnal::with('santri')->orderBy('tanggal_jurnal', 'desc')->get();
+            }
         }
         return view('layouts/jurnal/jurnal',compact('data'));
     }

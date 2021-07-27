@@ -47,24 +47,30 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($data as $item)
-                            @php
-                                $nomor++;
-                            @endphp
+                        @if ($data)
+                            @foreach ($data as $item)
+                                @php
+                                    $nomor++;
+                                @endphp
+                                <tr>
+                                    <td>{{ $nomor }}</td>
+                                    <td>{{ $item->santri->nama_santri }}</td>
+                                    <td>{{ $item->judul_jurnal }}</td>
+                                    <td>{{ Str::substr($item->deskripsi_jurnal, 0, 100) . "..." }}</td>
+                                    <td>{{ $item->tanggal_jurnal }}</td>
+                                    <td>
+                                        <a href="{{ route('jurnalDetail',$id = $item->id) }}"><button class="btn btn-secondary mb-1 float-left mr-1">Lihat Detail</button></a>
+                                        @if (auth()->user()->status == "santri")
+                                            <a href="{{ route('jurnalEdit',$id = $item->id) }}"><button class="btn btn-primary mb-1 float-left mr-1">Edit</button></a>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
                             <tr>
-                                <td>{{ $nomor }}</td>
-                                <td>{{ $item->santri->nama_santri }}</td>
-                                <td>{{ $item->judul_jurnal }}</td>
-                                <td>{{ Str::substr($item->deskripsi_jurnal, 0, 100) . "..." }}</td>
-                                <td>{{ $item->tanggal_jurnal }}</td>
-                                <td>
-                                    <a href="{{ route('jurnalDetail',$id = $item->id) }}"><button class="btn btn-secondary mb-1 float-left mr-1">Lihat Detail</button></a>
-                                    @if (auth()->user()->status == "santri")
-                                        <a href="{{ route('jurnalEdit',$id = $item->id) }}"><button class="btn btn-primary mb-1 float-left mr-1">Edit</button></a>
-                                    @endif
-                                </td>
+                                <td colspan="6"><center>Data Kosong</center></td>
                             </tr>
-                        @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>
