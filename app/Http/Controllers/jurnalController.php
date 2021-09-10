@@ -312,7 +312,7 @@ class jurnalController extends Controller
         $data->ashar = $this->cekData($request->ashar);
         $data->maghrib = $this->cekData($request->maghrib);
         $data->isya = $this->cekData($request->isya);
-        $data->baca_alquran = $this->cekData($request->membaca_alquran);
+        $data->baca_alquran = $this->cekData($request->baca_alquran);
         $data->tanggal_kegiatan = $tgl;
 
         $result = $data->save();
