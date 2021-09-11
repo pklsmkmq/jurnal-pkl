@@ -331,4 +331,37 @@ class jurnalController extends Controller
             return "belum";
         }
     }
+
+    public function fixErrorKegiatan()
+    {
+        $data = kegiatan::get();
+        
+        foreach ($data as $key) {
+            $total = 0;
+            $total = $total + $this->cekKegiatan($key->dzikir_pagi);
+            $total = $total + $this->cekKegiatan($key->dzikir_petang);
+            $total = $total + $this->cekKegiatan($key->subuh);
+            $total = $total + $this->cekKegiatan($key->dzuhur);
+            $total = $total + $this->cekKegiatan($key->ashar);
+            $total = $total + $this->cekKegiatan($key->maghrib);
+            $total = $total + $this->cekKegiatan($key->isya);
+            if ($total == 7) {
+                $key->baca_alquran = "sudah";
+                $result = $key->save();
+                echo "sukses ubah data";
+                echo "<br>";
+            }
+        }
+        
+        // return $total;
+    }
+
+    public function cekKegiatan($data)
+    {
+        if($data == "sudah"){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
 }

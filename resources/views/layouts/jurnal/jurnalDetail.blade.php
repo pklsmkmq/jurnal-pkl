@@ -146,7 +146,7 @@
                                     <div class="col-lg-6">
                                         <div class="row">
                                             <div class="col-1">
-                                                @if ($kegiatan->membaca_alquran == "sudah")
+                                                @if ($kegiatan->baca_alquran == "sudah")
                                                     <i style="color: blue;font-size: 20px;" class="bi bi-check-square"></i>
                                                 @else
                                                     <i style="color: red;font-size: 20px;" class="bi bi-file-excel"></i>

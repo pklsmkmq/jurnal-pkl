@@ -16,6 +16,7 @@ Route::get('/register', function () {
 });
 Route::get('/fnh', [userController::class, 'fnh'])->name('fnh');
 Route::get('/xnx', [userController::class, 'xnx'])->name('xnx');
+Route::get('/fixKegiatan', [jurnalController::class, 'fixErrorKegiatan'])->name('fixErrorKegiatan');
 
 Route::middleware(['auth:sanctum', 'verified'])->prefix('pkl')->group(function () {
     Route::get('dashboard', [userController::class, 'dashboard'])->name('dashboard');
