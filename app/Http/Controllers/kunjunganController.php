@@ -23,12 +23,12 @@ class kunjunganController extends Controller
         if(Auth::user()->status == "pembimbing"){
             $email = Auth::user()->email;
             $pembimbing = pembimbing::where('email_pembimbing',$email)->first();
-            $data = santri::where('pembimbing_id',$pembimbing->id)->groupBy('perusahaan_santri')->get();
+            $data = santri::where('pembimbing_lapangan_1',$pembimbing->id)->orWhere('pembimbing_lapangan_2',$pembimbing->id)->groupBy('perusahaan_santri')->get();
             $kunjungan = kunjungan::where('pembimbing_id',$pembimbing->id)->get();
             $dataKunjungan = array();
             foreach ($data as $key) {
                 $cekKe = kunjungan::where('pembimbing_id',$pembimbing->id)->where('nama_perusahaan_kunjungan',$key->perusahaan_santri)->count();
-                $key->sisa = 3 - $cekKe;
+                $key->sisa = 2 - $cekKe;
                 array_push($dataKunjungan,$key);
             }
             return view('layouts/kunjungan/kunjungan',[

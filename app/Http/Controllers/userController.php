@@ -66,7 +66,7 @@ class userController extends Controller
             $dt3 = kunjungan::where('pembimbing_id',$pembimbing->id)->count();
 
             $data1 = santri::where('pembimbing_id',$pembimbing->id)->count();
-            $data2 = (count($dt2) * 3) - $dt3;
+            $data2 = (count($dt2) * 2) - $dt3;
             $data3 = $dt3;
             $data4 = $jm;
             if(count($dt) == 0){
