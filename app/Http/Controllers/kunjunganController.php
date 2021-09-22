@@ -66,7 +66,7 @@ class kunjunganController extends Controller
     {
         $email = Auth::user()->email;
         $pembimbing = pembimbing::where('email_pembimbing',$email)->first();
-        $data = santri::where('pembimbing_id',$pembimbing->id)->groupBy('perusahaan_santri')->get();
+        $data = santri::where('pembimbing_lapangan_1',$pembimbing->id)->orWhere('pembimbing_lapangan_2',$pembimbing->id)->groupBy('perusahaan_santri')->get();
         return view('layouts/kunjungan/addKunjungan',compact('data'));
     }
 
@@ -147,7 +147,7 @@ class kunjunganController extends Controller
     {
         $email = Auth::user()->email;
         $pembimbing = pembimbing::where('email_pembimbing',$email)->first();
-        $data = santri::where('pembimbing_id',$pembimbing->id)->groupBy('perusahaan_santri')->get();
+        $data = santri::where('pembimbing_lapangan_1',$pembimbing->id)->orWhere('pembimbing_lapangan_2',$pembimbing->id)->groupBy('perusahaan_santri')->get();
         $kunjungan = kunjungan::where('id',$id)->first();
         if ($data) {
             return view('layouts/kunjungan/editKunjungan',[
