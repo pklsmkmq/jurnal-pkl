@@ -6,16 +6,11 @@
         <i class="bi bi-justify fs-3"></i>
     </a>
 </header>
-
-<div class="page-heading">
-    <h2>أَهْلًا وَسَهْلًا</h2>
-    <h3>{{ auth()->user()->name }}</h3>
-</div>
 <div class="page-content">
     <section class="row">
         <div class="col-12 col-lg-9">
             <div class="row">
-                <div class="col-6 col-lg-3 col-md-6">
+                <div class="col-6 col-lg-3 col-md-6 mb-sm-3 mb-3 mb-lg-0">
                     <div class="card">
                         <div class="card-body px-3 py-4-5">
                             <div class="row">
@@ -27,9 +22,9 @@
                                 <div class="col-md-8 col-8">
                                     <h6 class="text-muted font-semibold text-front">
                                         @if (auth()->user()->status == "santri" || auth()->user()->status == "walsan")
-                                            Kunjungan
+                                            Total Kunjungan
                                         @else
-                                            Santri
+                                            Total Santri
                                         @endif
                                     </h6>
                                     <h2 class="font-extrabold mb-0">{{ $data1 }}</h2>
@@ -79,7 +74,7 @@
                                         style="font-size: 12px"
                                     @endif >
                                         @if (auth()->user()->status == "pembimbing" || auth()->user()->status == "admin")
-                                            Kunjungan Selesai
+                                            Kunjungan
                                         @else
                                             Pembimbing Lapangan
                                         @endif
@@ -112,11 +107,11 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row mt-3 mb-3">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Laporan Jurnal Harian</h4>
+                            <h4>Laporan Kegiatan Harian Santri</h4>
                         </div>
                         <div class="card-body">
                             <div id="chart-profile-visit"></div>

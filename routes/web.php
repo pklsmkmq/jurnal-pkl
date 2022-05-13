@@ -1,19 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\userController;
-use App\Http\Controllers\santriController;
-use App\Http\Controllers\pembimbingController;
-use App\Http\Controllers\walsanController;
-use App\Http\Controllers\jurnalController;
-use App\Http\Controllers\kunjunganController;
+use App\Http\Controllers\{
+    userController,
+    santriController,
+    pembimbingController,
+    walsanController,
+    jurnalController,
+    kunjunganController
+};
 
-Route::get('/', function () {
-    return view('auth/login');
-});
-Route::get('/register', function () {
-    return view('auth/login');
-});
+Route::get('/', [userController::class, 'login']);
+Route::get('/register', [userController::class, 'login']);
 Route::get('/fnh', [userController::class, 'fnh'])->name('fnh');
 Route::get('/xnx', [userController::class, 'xnx'])->name('xnx');
 Route::get('/fixKegiatan', [jurnalController::class, 'fixErrorKegiatan'])->name('fixErrorKegiatan');
@@ -73,5 +71,9 @@ Route::middleware(['auth:sanctum', 'verified'])->prefix('pkl')->group(function (
         Route::get('/edit/{id}', [kunjunganController::class, 'edit'])->name('editKunjungan');
         Route::put('/update/{id}', [kunjunganController::class, 'update'])->name('updateKunjungan');
         Route::delete('/delete/{id}', [kunjunganController::class, 'destroy'])->name('deleteKunjungan');
+    });
+
+    Route::prefix('pengaturan')->group(function () {
+        Route::get('/', [kunjunganController::class, 'index'])->name('pengaturan');
     });
 });

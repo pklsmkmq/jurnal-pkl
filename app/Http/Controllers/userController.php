@@ -176,7 +176,7 @@ class userController extends Controller
         $dataUser = new User;
         $dataUser->name = "Admin Pkl";
         $dataUser->email = "admin@smkmadinatulquran.com";
-        $dataUser->password = bcrypt("itcorps2021");
+        $dataUser->password = bcrypt("itcorps2021@!*");
         $dataUser->status = "admin";
         $resultUser = $dataUser->save();
         if($resultUser){
@@ -204,6 +204,19 @@ class userController extends Controller
             return abort(401);
         }else{
             return abort(404);
+        }
+    }
+
+    public function login()
+    {
+        try {
+            if (Auth::user()->name == "") {
+                return redirect()->route('dashboard');
+            }else{
+                return view('auth/login');
+            }
+        } catch (\Throwable $th) {
+            return view('auth/login');
         }
     }
 }
