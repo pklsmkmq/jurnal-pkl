@@ -15,6 +15,13 @@ class userController extends Controller
 {
     public function dashboard()
     {
+        if (Auth::user()->status == "santri") {
+            $santri = santri::where('email_santri',Auth::user()->email)->first();
+            if ($santri->status == 1) {
+                Auth::guard('web')->logout();
+                return redirect()->route('aksesditolak');   
+            }
+        }
         if(Auth::user()->status == "admin"){
             $data1 = santri::count();
             $data2 = pembimbing::count();
@@ -218,5 +225,11 @@ class userController extends Controller
         } catch (\Throwable $th) {
             return view('auth/login');
         }
+    }
+
+    public function cekKet()
+    {
+        $data = User::where('id', Auth::user()->id)->first();
+        return $data;
     }
 }

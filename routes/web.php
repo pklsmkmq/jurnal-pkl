@@ -7,7 +7,8 @@ use App\Http\Controllers\{
     pembimbingController,
     walsanController,
     jurnalController,
-    kunjunganController
+    kunjunganController,
+    SettingController
 };
 
 Route::get('/', [userController::class, 'login']);
@@ -15,6 +16,9 @@ Route::get('/register', [userController::class, 'login']);
 Route::get('/fnh', [userController::class, 'fnh'])->name('fnh');
 Route::get('/xnx', [userController::class, 'xnx'])->name('xnx');
 Route::get('/fixKegiatan', [jurnalController::class, 'fixErrorKegiatan'])->name('fixErrorKegiatan');
+Route::get('/aksesditolak', function () {
+    return view('aksesDitolak');
+})->name("aksesditolak");
 
 Route::middleware(['auth:sanctum', 'verified'])->prefix('pkl')->group(function () {
     Route::get('dashboard', [userController::class, 'dashboard'])->name('dashboard');
@@ -74,6 +78,7 @@ Route::middleware(['auth:sanctum', 'verified'])->prefix('pkl')->group(function (
     });
 
     Route::prefix('pengaturan')->group(function () {
-        Route::get('/', [kunjunganController::class, 'index'])->name('pengaturan');
+        Route::get('/', [SettingController::class, 'index'])->name('pengaturan');
+        Route::post('/save', [SettingController::class, 'store'])->name('savePengaturan');
     });
 });
