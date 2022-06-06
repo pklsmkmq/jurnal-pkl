@@ -10,7 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"> --}}
+    <link rel="stylesheet" href="{{ url('bs5/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url('assets/css/bootstrap.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ url('assets/vendors/iconly/bold.css') }}">
@@ -100,6 +101,15 @@
                             </li>
                         @endif
 
+                        @if (auth()->user()->status == "santri" || auth()->user()->status == "pembimbing" )
+                            <li class="sidebar-item  {{ (request()->segment(2) == 'bimbingan') ? 'active' : '' }}">
+                                <a href="{{ route('bimbingan') }}" class='sidebar-link'>
+                                    <i class="bi bi-book-half"></i>
+                                    <span>Bimbingan Laporan</span>
+                                </a>
+                            </li>
+                        @endif
+
                         <li class="sidebar-item  ">
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
@@ -119,20 +129,23 @@
             @yield('content')
         </div>
     </div>
-    <script src="{{ url('assets/js/jquery-3.2.1.min.js') }}"></script>
-    <script src="{{ url('assets/js/bootstrap.min.js') }}"></script>
     {{-- <script src="{{ url('assets/js/bs4.js') }}"></script> --}}
+    {{-- <script src="{{ url('assets/js/bootstrap.bundle.min.js') }}"></script> --}}
+    {{-- <script src="{{ url('assets/js/pages/dashboard.js') }}"></script> --}}
+    {{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.bundle.min.js"></script> --}}
+
+    <script src="{{ url('assets/js/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ url('bs5/js/bootstrap.bundle.min.js') }}"></script>
+    
     <script src="{{ url('assets/js/popper.min.js') }}"></script>
     <script src="{{ url('assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
-    {{-- <script src="{{ url('assets/js/bootstrap.bundle.min.js') }}"></script> --}}
 
     <script src="{{ url('assets/vendors/apexcharts/apexcharts.js') }}"></script>
-    {{-- <script src="{{ url('assets/js/pages/dashboard.js') }}"></script> --}}
+    
     <script src="{{ url('assets/vendors/simple-datatables/simple-datatables.js') }}"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.bundle.min.js"></script>
+    
     <script src="{{ url('assets/js/bootstrap-select.js') }}"></script>
     <script>
-        // Simple Datatable
         let table1 = document.querySelector('#table1');
         let dataTable = new simpleDatatables.DataTable(table1);
 
@@ -286,8 +299,6 @@
 
             $("#bla").change(function() {
                 var today = new Date();
-                // console.log($("#bla").val());
-                // console.log(formatDate(today));
 
                 if ($("#bla").val() == formatDate(today)) {
                     $("#blok-kegiatan").css("display","block");

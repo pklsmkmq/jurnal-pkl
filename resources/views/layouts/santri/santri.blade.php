@@ -24,7 +24,7 @@
             </div>
         </div>
     </div>
-    <section class="section shadow">
+    <section class="section shadow mb-4">
         <div class="card">
             @if (auth()->user()->status == "admin")
                 <div class="card-header">

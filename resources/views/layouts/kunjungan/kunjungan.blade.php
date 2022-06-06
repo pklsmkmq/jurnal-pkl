@@ -28,7 +28,7 @@
     </div>
 
     @if (auth()->user()->status == "pembimbing")
-        <section class="section shadow rounded">
+        <section class="section shadow rounded mb-4">
             <div class="card">
                 <div class="card-header">
                     <h3>Daftar Perusahaan Kelompok Antum</h3>

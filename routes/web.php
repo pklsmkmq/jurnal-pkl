@@ -81,4 +81,9 @@ Route::middleware(['auth:sanctum', 'verified'])->prefix('pkl')->group(function (
         Route::get('/', [SettingController::class, 'index'])->name('pengaturan');
         Route::post('/save', [SettingController::class, 'store'])->name('savePengaturan');
     });
+
+    Route::prefix('bimbingan')->group(function () {
+        Route::get('/', [SettingController::class, 'bimbingan'])->name('bimbingan');
+        Route::get('/addTugas', [SettingController::class, 'addTugas'])->name('addTugas');
+    });
 });

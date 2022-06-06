@@ -140,4 +140,14 @@ class SettingController extends Controller
        $nonAktif = santri::whereNotIn('angkatan', [$angkatan])->update(['status' => 1]);
        $aktif = santri::where('angkatan', $angkatan)->update(['status' => 0]);
     }
+
+    public function bimbingan()
+    {
+        return view('layouts/bimbingan/bimbingan');
+    }
+
+    public function addTugas()
+    {
+        return view('layouts/bimbingan/addTugas');
+    }
 }
