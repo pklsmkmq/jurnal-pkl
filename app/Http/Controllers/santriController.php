@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\santri;
+use App\Models\{santri, User, pembimbing, jurnal, kegiatan};
 use Illuminate\Http\Request;
 use Validator;
 use App\Imports\santriImport;
 use App\Imports\userImport;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Models\User;
-use App\Models\pembimbing;
-use App\Models\jurnal;
 use Auth;
+use PDF;
 
 class santriController extends Controller
 {
@@ -320,5 +318,24 @@ class santriController extends Controller
         if(Auth::user()->status != "admin"){
             return abort(404);
         }
+    }
+
+    public function exportSantri($nisn)
+    {
+        // $path = base_path('kop.png');
+        // $type = pathinfo($path, PATHINFO_EXTENSION);
+        // $data = file_get_contents($path);
+        // $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+        // return $base64;
+        $nama = santri::where('nisn', $nisn)->first()->nama_santri;
+        $namaFl = str_replace(" ","_",$nama);
+        $dataJurnal = jurnal::where('santri_nisn',$nisn)->get();
+        foreach ($dataJurnal as $key) {
+            $key['kegiatan'] = kegiatan::where('santri_nisn', $nisn)->where('tanggal_kegiatan', $key->tanggal_jurnal)->first();
+        }
+        view()->share(['data' => $dataJurnal, 'nama' => $nama]);
+        $pdf = PDF::setOptions(['isHTML5parsedEnabled' => true, 'isRemoteEnabled' => true])->loadview('datasantri');
+        return $pdf->download($namaFl . '.pdf');
+        // return $dataJurnal;
     }
 }

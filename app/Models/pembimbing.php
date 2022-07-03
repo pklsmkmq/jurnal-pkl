@@ -19,4 +19,9 @@ class pembimbing extends Model
     {
         return $this->hasMany(kunjungan::class);
     }
+
+    public function tugas()
+    {
+        return $this->hasMany(Tugas::class);
+    }
 }

@@ -8,7 +8,8 @@ use App\Http\Controllers\{
     walsanController,
     jurnalController,
     kunjunganController,
-    SettingController
+    SettingController,
+    TugasController
 };
 
 Route::get('/', [userController::class, 'login']);
@@ -33,6 +34,7 @@ Route::middleware(['auth:sanctum', 'verified'])->prefix('pkl')->group(function (
         Route::delete('/delete/{santri:nisn}', [santriController::class, 'destroy'])->name('deleteSantri');
         Route::post('/upload', [santriController::class, 'uploadExcel'])->name('uploadSantri');
         Route::get('/contoh', [santriController::class, 'contohFile'])->name('contohFile');
+        Route::get('/export/{santri:nisn}',[santriController::class, 'exportSantri'])->name('exportSantri');
     });
 
     Route::middleware(['admin'])->prefix('pembimbing')->group(function () {
@@ -83,7 +85,10 @@ Route::middleware(['auth:sanctum', 'verified'])->prefix('pkl')->group(function (
     });
 
     Route::prefix('bimbingan')->group(function () {
-        Route::get('/', [SettingController::class, 'bimbingan'])->name('bimbingan');
-        Route::get('/addTugas', [SettingController::class, 'addTugas'])->name('addTugas');
+        Route::get('/', [TugasController::class, 'index'])->name('bimbingan');
+        Route::get('/addTugas', [TugasController::class, 'create'])->name('addTugas');
+        Route::post('/save', [TugasController::class, 'store'])->name('saveTugas');
+        Route::get('/edit/{id}', [TugasController::class, 'show'])->name('editTugas');
+        Route::get('/abc', [TugasController::class, 'show'])->name('acacas');
     });
 });

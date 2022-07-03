@@ -101,14 +101,12 @@
                             </li>
                         @endif
 
-                        @if (auth()->user()->status == "santri" || auth()->user()->status == "pembimbing" )
                             <li class="sidebar-item  {{ (request()->segment(2) == 'bimbingan') ? 'active' : '' }}">
                                 <a href="{{ route('bimbingan') }}" class='sidebar-link'>
                                     <i class="bi bi-book-half"></i>
                                     <span>Bimbingan Laporan</span>
                                 </a>
                             </li>
-                        @endif
 
                         <li class="sidebar-item  ">
                             <form method="POST" action="{{ route('logout') }}">
@@ -143,7 +141,7 @@
     <script src="{{ url('assets/vendors/apexcharts/apexcharts.js') }}"></script>
     
     <script src="{{ url('assets/vendors/simple-datatables/simple-datatables.js') }}"></script>
-    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.bundle.min.js"></script>
     <script src="{{ url('assets/js/bootstrap-select.js') }}"></script>
     <script>
         let table1 = document.querySelector('#table1');

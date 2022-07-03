@@ -41,7 +41,7 @@
     border-radius: 50% !important;
     color: white;
     font-weight: bold;
-    height: 8vh;
+    height: 50px;
 }
 
 button.btn.btn-block.btn-xl.btn-light-primary.font-bold.mt-3 {
@@ -50,4 +50,12 @@ button.btn.btn-block.btn-xl.btn-light-primary.font-bold.mt-3 {
 
 #blok-kegiatan{
     display: none;
+}
+
+.margin-avatar{
+    margin-left: 40px !important;
+}
+
+.margin-avatar h5 {
+    margin: 0 !important;
 }

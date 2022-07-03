@@ -66,10 +66,11 @@
                                         <a href="{{ route('jurnalSantri',$nisn = $item->nisn) }}"><button class="btn btn-secondary mb-1 float-left mr-1">Jurnal</button></a>
                                         <a href="{{ route('editSantri',$nisn = $item->nisn) }}"><button class="btn btn-primary mb-1 float-left mr-1">Edit</button></a>
                                         <form action="{{ route('deleteSantri',$nisn = $item->nisn) }}" method="post">
-                                        @csrf
-                                        @method("delete")
-                                        <button class="btn btn-danger" type="submit">Delete</button>
-                                    </form>
+                                            @csrf
+                                            @method("delete")
+                                            <button class="btn btn-danger" type="submit">Delete</button>
+                                        </form>
+                                        <a href="{{ route('exportSantri',$nisn = $item->nisn) }}" target="_blank"><button class="btn btn-success">Cetak</button></a>
                                     </td>
                                 @endif
                             </tr>

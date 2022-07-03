@@ -191,7 +191,7 @@
                         <div class="avatar avatar-xl mr-4">
                             <div class="rounded bg-primary img-avatar">{{ $foto }}</div>
                         </div>
-                        <div class="ms-3 name">
+                        <div class="ms-3 name margin-avatar">
                             <h5 class="font-bold">{{ auth()->user()->name }}</h5>
                             <h6 class="text-muted mb-0">{{ auth()->user()->status }}</h6>
                         </div>
@@ -207,11 +207,11 @@
                         <p style="text-align: center">Data Kosong</p>
                     @else
                         @foreach ($recentJurnal as $item)
-                            <div class="recent-message d-flex px-4 py-3">
+                            <div class="recent-message d-flex px-4 py-3 border-bottom">
                                 <div class="avatar avatar-lg mr-3">
                                     <div class="rounded bg-primary img-avatar">{{ $item->avatar }}</div>
                                 </div>
-                                <div class="name ms-4">
+                                <div class="name ms-4 margin-avatar">
                                     <h5 class="mb-1">{{ $item->santri->nama_santri }}</h5>
                                     <h6 class="text-muted mb-0">{{ $item->created_at->diffForHumans() }}</h6>
                                 </div>
