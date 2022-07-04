@@ -35,8 +35,9 @@
                     <div class="card-content">
                         <div class="card-body">
                             @include('layouts/massage')
-                            <form class="form" method="POST" action="{{ route('saveTugas') }}" enctype="multipart/form-data">
+                            <form class="form" method="POST" action="{{ route('updateTugas',$id = $data->id) }}" enctype="multipart/form-data">
                                 @csrf
+                                @method("put")
                                 <div class="row">
                                     <div class="col-md-6 col-12">
                                         <div class="form-group">
@@ -55,8 +56,9 @@
                                         <div class="form-group">
                                             <label for="file_tugas">File Tugas</label><br>
                                             @if ($data->file_tugas != null)
-                                                <a href="{{ $data->file_tugas }}" target="_blank"><button class="btn btn-outline-primary mb-2" alt="Download File Tugas Sebelumnya" type="button">File Tugas Sebelumnya</button></a>
+                                                <a href="{{ $data->file_tugas }}" target="_blank"><button class="btn btn-outline-primary mb-2" alt="Download File Tugas Sebelumnya" type="button">Lihat File Tugas Sebelumnya</button></a>
                                             @endif
+                                            <br>
                                             <span class="fst-italic">Opsional (Jika terdapat contoh atau panduan tugas)</span>
                                             <input type="file" id="file_tugas" name="file_tugas" class="form-control">
                                         </div>

@@ -119,7 +119,7 @@
                     </div>
                 </div>
             </div>
-            @if (auth()->user()->status == "admin")
+            {{-- @if (auth()->user()->status == "admin")
             <div class="row">
                 <div class="col-12 col-xl-4">
                     <div class="card">
@@ -137,52 +137,12 @@
                             <h4>Kunjungan PKL Baru Saja</h4>
                         </div>
                         <div class="card-body">
-                            {{-- <div class="table-responsive">
-                                <table class="table table-hover table-lg">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Comment</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="col-3">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="avatar avatar-md">
-                                                        <img src="{{ url('assets/images/faces/5.jpg') }}">
-                                                    </div>
-                                                    <p class="font-bold ms-3 mb-0">Si Cantik</p>
-                                                </div>
-                                            </td>
-                                            <td class="col-auto">
-                                                <p class=" mb-0">Congratulations on your graduation!</p>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="col-3">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="avatar avatar-md">
-                                                        <img src="{{ url('assets/images/faces/2.jpg') }}">
-                                                    </div>
-                                                    <p class="font-bold ms-3 mb-0">Si Ganteng</p>
-                                                </div>
-                                            </td>
-                                            <td class="col-auto">
-                                                <p class=" mb-0">Wow amazing design! Can you make another
-                                                    tutorial for
-                                                    this design?</p>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div> --}}
                             <img src="{{ url('assets/images/bg/coming_soon.jpg') }}" style="width: 100%" alt="coming soon" class="img-responsive">
                         </div>
                     </div>
                 </div>
             </div>
-            @endif
+            @endif --}}
         </div>
         <div class="col-12 col-lg-3">
             <div class="card">
@@ -223,17 +183,15 @@
                     </div>
                 </div>
             </div>
-            @if (auth()->user()->status == "admin")
+            {{-- @if (auth()->user()->status == "admin")
             <div class="card">
                 <div class="card-header">
-                    {{-- <h4>Coming Soon</h4> --}}
                 </div>
                 <div class="card-body">
-                    {{-- <div id="chart-visitors-profile"></div> --}}
                     <img src="{{ url('assets/images/bg/coming_soon.jpg') }}" style="width: 100%" alt="coming soon" class="img-responsive">
                 </div>
             </div>
-            @endif
+            @endif --}}
         </div>
     </section>
 </div>

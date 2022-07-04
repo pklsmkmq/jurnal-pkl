@@ -88,7 +88,9 @@ Route::middleware(['auth:sanctum', 'verified'])->prefix('pkl')->group(function (
         Route::get('/', [TugasController::class, 'index'])->name('bimbingan');
         Route::get('/addTugas', [TugasController::class, 'create'])->name('addTugas');
         Route::post('/save', [TugasController::class, 'store'])->name('saveTugas');
-        Route::get('/edit/{id}', [TugasController::class, 'show'])->name('editTugas');
-        Route::get('/abc', [TugasController::class, 'show'])->name('acacas');
+        Route::get('/show/{id}', [TugasController::class, 'show'])->name('showTugas');
+        Route::get('/edit/{id}', [TugasController::class, 'edit'])->name('editTugas');
+        Route::put('/update/{id}', [TugasController::class, 'update'])->name('updateTugas');
+        Route::delete('/delete/{id}', [TugasController::class, 'destroy'])->name('deleteTugas');
     });
 });

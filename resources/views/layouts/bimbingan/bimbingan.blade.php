@@ -16,8 +16,7 @@
                 <h3>Data Bimbingan Laporan</h3>
                 @if (auth()->user()->status == "pembimbing")
                   <p class="text-subtitle text-muted">Antum dapat memberikan tugas laporan dan mengkoreksi laporan disini</p>    
-                @endif
-                @if (auth()->user()->status == "santri")
+                @elseif (auth()->user()->status == "santri")
                   <p class="text-subtitle text-muted">Antum dapat melakukan bimbingan disini</p>
                 @else
                   <p class="text-subtitle text-muted">Antum dapat melihat bimbingan santri disini</p>
@@ -59,7 +58,10 @@
                     <div class="accordion-item">
                       <h2 class="accordion-header" id="heading{{ $nomor }}">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $nomor }}" aria-expanded="false" aria-controls="collapse{{ $nomor }}">
-                          {{ $item->pembimbing->nama_pembimbing }} || {{ $item->nama_tugas }}
+                          @if (auth()->user()->status == "admin")
+                            {{ $item->pembimbing->nama_pembimbing }} ||     
+                          @endif
+                          {{ $item->nama_tugas }}
                         </button>
                       </h2>
                       <div id="collapse{{ $nomor }}" class="accordion-collapse collapse" aria-labelledby="heading{{ $nomor }}" data-bs-parent="#accordionExample">
@@ -101,9 +103,13 @@
                           <div class="container d-flex justify-content-between">
                             @if (auth()->user()->status == "pembimbing")
                               <a href="{{ route('editTugas',$id = $item->id) }}"><button class="btn btn-primary">Edit Tugas</button></a>
-                              <button class="btn btn-danger">Hapus Tugas</button>
+                              <form action="{{ route('deleteTugas',$id = $item->id) }}" method="post">
+                                @csrf
+                                @method("delete")
+                                <button class="btn btn-danger">Hapus Tugas</button>
+                              </form>
                             @else
-                              <button class="btn btn-secondary">Lihat Tugas</button>
+                              <a href="{{ route('showTugas',$id = $item->id) }}"><button class="btn btn-secondary">Lihat Tugas</button></a>
                             @endif
                           </div>
                         </div>
@@ -129,18 +135,21 @@
                   </tr>
               </thead>
               <tbody>
-                  {{-- @if ($data)
+                @php
+                  $nomor = 0;
+                @endphp
+                  @if ($data)
                       @foreach ($data as $item)
                           @php
                               $nomor++;
-                          @endphp --}}
+                          @endphp
                           <tr>
-                              <td>1</td>
-                              <td>Bab 1</td>
-                              <td>20-10-2022</td>
+                              <td>{{ $nomor }}</td>
+                              <td>{{ $item->nama_tugas }}</td>
+                              <td>{{ str_replace(" ", " | ",$item->batas_pengumpulan_tugas) }}</td>
                               <td>Belum Dikerjakan</td>
                               <td>
-                                <button class="btn btn-secondary mb-1 float-left mr-1">Lihat Detail</button>
+                                <a href="{{ route('showTugas',$id = $item->id) }}"><button class="btn btn-secondary mb-1 float-left mr-1">Lihat Detail</button></a>
                                 @if (auth()->user()->status == "santri")
                                   <button class="btn btn-danger mb-1 float-left mr-1">Kerjakan</button>
                                 @endif
@@ -150,44 +159,12 @@
                                   @endif --}}
                               </td>
                           </tr>
-                          <tr>
-                            <td>2</td>
-                            <td>Bab 2</td>
-                            <td>20-11-2022</td>
-                            <td>Belum Dikerjakan</td>
-                            <td>
-                              <button class="btn btn-secondary mb-1 float-left mr-1">Lihat Detail</button>
-                              @if (auth()->user()->status == "santri")
-                                <button class="btn btn-danger mb-1 float-left mr-1">Kerjakan</button>
-                              @endif
-                                {{-- <a href="{{ route('jurnalDetail',$id = $item->id) }}"><button class="btn btn-secondary mb-1 float-left mr-1">Lihat Detail</button></a>
-                                @if (auth()->user()->status == "santri")
-                                    <a href="{{ route('jurnalEdit',$id = $item->id) }}"><button class="btn btn-primary mb-1 float-left mr-1">Edit</button></a>
-                                @endif --}}
-                            </td>
-                        </tr>
-                        <tr>
-                          <td>3</td>
-                          <td>Bab 3</td>
-                          <td>20-12-2022</td>
-                          <td>Belum Dikerjakan</td>
-                          <td>
-                            <button class="btn btn-secondary mb-1 float-left mr-1">Lihat Detail</button>
-                            @if (auth()->user()->status == "santri")
-                              <button class="btn btn-danger mb-1 float-left mr-1">Kerjakan</button>
-                            @endif
-                              {{-- <a href="{{ route('jurnalDetail',$id = $item->id) }}"><button class="btn btn-secondary mb-1 float-left mr-1">Lihat Detail</button></a>
-                              @if (auth()->user()->status == "santri")
-                                  <a href="{{ route('jurnalEdit',$id = $item->id) }}"><button class="btn btn-primary mb-1 float-left mr-1">Edit</button></a>
-                              @endif --}}
-                          </td>
-                      </tr>
-                      {{-- @endforeach
+                      @endforeach
                   @else
                       <tr>
                           <td colspan="6"><center>Data Kosong</center></td>
                       </tr>
-                  @endif --}}
+                  @endif
               </tbody>
           </table>
         </div>
