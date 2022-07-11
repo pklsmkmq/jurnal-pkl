@@ -81,12 +81,22 @@
                                       <td>{{ $key->santri->nama_santri }}</td>
                                       <td>{{ $key->link_jawaban }}</td>
                                       <td>{{ $key->keterangan_jawaban }}</td>
-                                      @if ($key->revisi == null)
-                                        <td><a href="{{ route('detailJawaban',$id = $key->id) }}"><button class="btn btn-outline-primary">Belum Diperiksa</button></td></a>
-                                      @elseif($key->revisi->status_revisi == "Revisi")
-                                        <td><a href="{{ route('detailJawaban',$id = $key->id) }}"><button class="btn btn-warning">Revisi</button></a></td>
+                                      @if (auth()->user()->status == "pembimbing")
+                                        @if ($key->revisi == null)
+                                          <td><a href="{{ route('detailJawaban',$id = $key->id) }}"><button class="btn btn-outline-primary">Belum Diperiksa</button></a></td>
+                                        @elseif($key->revisi->status_revisi == "Revisi")
+                                          <td><a href="{{ route('detailJawaban',$id = $key->id) }}"><button class="btn btn-warning">Revisi</button></a></td>
+                                        @else
+                                          <td><a href="{{ route('detailJawaban',$id = $key->id) }}"><button class="btn btn-success">Tuntas</button></a></td>
+                                        @endif
                                       @else
-                                        <td><a href="{{ route('detailJawaban',$id = $key->id) }}"><button class="btn btn-success">Tuntas</button></a></td>
+                                        @if ($key->revisi == null)
+                                          <td><button class="btn btn-outline-primary">Belum Diperiksa</button></td>
+                                        @elseif($key->revisi->status_revisi == "Revisi")
+                                          <td><button class="btn btn-warning">Revisi</button></td>
+                                        @else
+                                          <td><button class="btn btn-success">Tuntas</button></td>
+                                        @endif
                                       @endif
                                     </tr>
                                   @php

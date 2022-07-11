@@ -37,8 +37,16 @@ class TugasController extends Controller
             $walsan = walsan::where('email_walsan',$email)->with('santri')->first();
             $santri = santri::where('email_santri',$walsan->santri->email_santri)->with('pembimbing')->first();
             $data = Tugas::where('pembimbing_id', $santri->pembimbing->id)->orderBy('id', 'asc')->get();
+            foreach ($data as $key) {
+                $jawaban = Jawaban::where('santri_nisn', $santri->nisn)->where('tugas_id', $key->id)->first();
+                $key->jawaban = $jawaban;
+            }
         }else {
             $data = Tugas::orderBy('id', 'asc')->with('pembimbing')->get();
+            foreach ($data as $key) {
+                $jawaban = Jawaban::where('tugas_id', $key->id)->with('santri')->with('revisi')->get();
+                $key->jawaban = $jawaban;
+            }
         }
         
         $jumlah = count($data);
