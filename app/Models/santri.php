@@ -32,4 +32,9 @@ class santri extends Model
     {
         return $this->hasMany(jurnal::class);
     }
+
+    public function jawaban()
+    {
+        return $this->hasOne(Jawaban::class);
+    }
 }

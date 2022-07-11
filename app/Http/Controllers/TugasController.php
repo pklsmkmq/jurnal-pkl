@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Tugas,pembimbing,santri,walsan};
+use App\Models\{Tugas,pembimbing,santri,walsan,Jawaban};
 use Illuminate\Http\Request;
 use Auth;
 use Validator;
@@ -21,9 +21,18 @@ class TugasController extends Controller
         if ($status == "pembimbing") {
             $pem = pembimbing::where('email_pembimbing', $email)->first();
             $data = Tugas::where('pembimbing_id', $pem->id)->orderBy('id', 'asc')->get();
+            foreach ($data as $key) {
+                $jawaban = Jawaban::where('tugas_id', $key->id)->with('santri')->with('revisi')->get();
+                $key->jawaban = $jawaban;
+            }
+            // return $data;
         }elseif ($status == "santri") {
             $santri = santri::where('email_santri',$email)->with('pembimbing')->first();
             $data = Tugas::where('pembimbing_id', $santri->pembimbing->id)->orderBy('id', 'asc')->get();
+            foreach ($data as $key) {
+                $jawaban = Jawaban::where('santri_nisn', $santri->nisn)->where('tugas_id', $key->id)->first();
+                $key->jawaban = $jawaban;
+            }
         }elseif ($status == "walsan") {
             $walsan = walsan::where('email_walsan',$email)->with('santri')->first();
             $santri = santri::where('email_santri',$walsan->santri->email_santri)->with('pembimbing')->first();
@@ -37,6 +46,7 @@ class TugasController extends Controller
             "data"=>$data,
             "jumlah"=>$jumlah
         ]);
+        // return $data;
     }
 
     /**

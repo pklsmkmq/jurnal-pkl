@@ -46,15 +46,9 @@
         <div class="card-body">
             @include('layouts/massage')
             @if ($jumlah > 0)
-            @php
-                $nomor = 0;
-            @endphp
               <div class="container">
                 <div class="accordion" id="accordionExample">
                   @foreach ($data as $item)
-                    @php
-                        $nomor++;
-                    @endphp
                     <div class="accordion-item">
                       <h2 class="accordion-header" id="heading{{ $nomor }}">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $nomor }}" aria-expanded="false" aria-controls="collapse{{ $nomor }}">
@@ -77,28 +71,37 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                  <td>1</td>
-                                  <td>Fullan</td>
-                                  <td>https://s.id</td>
-                                  <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, optio cum officia, deserunt exercitationem sit consequatur doloremque dolor laborum debitis blanditiis molestiae minima itaque odio harum iusto consectetur necessitatibus placeat.</td>
-                                  <td><button class="btn btn-outline-primary">Belum Diperiksa</button></td>
-                                </tr>
-                                <tr>
-                                  <td>2</td>
-                                  <td>Saiful</td>
-                                  <td>https://s.id</td>
-                                  <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, optio cum officia, deserunt exercitationem sit consequatur doloremque dolor laborum debitis blanditiis molestiae minima itaque odio harum iusto consectetur necessitatibus placeat.</td>
-                                  <td><button class="btn btn-warning">Revisi</button></td>
-                                </tr>
-                                <tr>
-                                  <td>3</td>
-                                  <td>Akd</td>
-                                  <td>https://s.id</td>
-                                  <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, optio cum officia, deserunt exercitationem sit consequatur doloremque dolor laborum debitis blanditiis molestiae minima itaque odio harum iusto consectetur necessitatibus placeat.</td>
-                                  <td><button class="btn btn-success">Tuntas</button></td>
-                                </tr>
+                              @if (count($item->jawaban) > 0)
+                              @php
+                                  $nomor = 1;
+                              @endphp
+                                  @foreach ($item->jawaban as $key)
+                                    <tr>
+                                      <td>{{ $nomor }}</td>
+                                      <td>{{ $key->santri->nama_santri }}</td>
+                                      <td>{{ $key->link_jawaban }}</td>
+                                      <td>{{ $key->keterangan_jawaban }}</td>
+                                      @if ($key->revisi == null)
+                                        <td><a href="{{ route('detailJawaban',$id = $key->id) }}"><button class="btn btn-outline-primary">Belum Diperiksa</button></td></a>
+                                      @elseif($key->revisi->status_revisi == "Revisi")
+                                        <td><a href="{{ route('detailJawaban',$id = $key->id) }}"><button class="btn btn-warning">Revisi</button></a></td>
+                                      @else
+                                        <td><a href="{{ route('detailJawaban',$id = $key->id) }}"><button class="btn btn-success">Tuntas</button></a></td>
+                                      @endif
+                                    </tr>
+                                  @php
+                                      $nomor++;
+                                  @endphp
+                                  @endforeach
+                              @else
+                                  <tr>
+                                    <td colspan="5"><center><strong>DATA KOSONG</strong></center></td>
+                                  </tr>
+                              @endif
+                                
                             </tbody>
+                            {{-- <td><button class="btn btn-warning">Revisi</button></td>
+                                  <td><button class="btn btn-success">Tuntas</button></td> --}}
                         </table>
                           <div class="container d-flex justify-content-between">
                             @if (auth()->user()->status == "pembimbing")
@@ -124,6 +127,7 @@
         </div>
       @else
         <div class="card-body">
+          @include('layouts/massage')
           <table class="table table-striped" id="table1">
               <thead>
                   <tr>
@@ -147,11 +151,21 @@
                               <td>{{ $nomor }}</td>
                               <td>{{ $item->nama_tugas }}</td>
                               <td>{{ str_replace(" ", " | ",$item->batas_pengumpulan_tugas) }}</td>
-                              <td>Belum Dikerjakan</td>
+                              <td>
+                                @if ($item->jawaban != null)
+                                  Sudah DiKumpulkan
+                                @else
+                                  Belum Dikerjakan
+                                @endif
+                              </td>
                               <td>
                                 <a href="{{ route('showTugas',$id = $item->id) }}"><button class="btn btn-secondary mb-1 float-left mr-1">Lihat Detail</button></a>
                                 @if (auth()->user()->status == "santri")
-                                  <button class="btn btn-danger mb-1 float-left mr-1">Kerjakan</button>
+                                  @if ($item->jawaban != null)
+                                  <a href="{{ route('editJawaban',$id = $item->jawaban->id) }}"><button class="btn btn-primary mb-1 float-left mr-1">Ubah Jawaban</button></a>
+                                  @else
+                                    <a href="{{ route('addJawaban',$id = $item->id) }}"><button class="btn btn-danger mb-1 float-left mr-1">Kerjakan</button></a>
+                                  @endif
                                 @endif
                                   {{-- <a href="{{ route('jurnalDetail',$id = $item->id) }}"><button class="btn btn-secondary mb-1 float-left mr-1">Lihat Detail</button></a>
                                   @if (auth()->user()->status == "santri")

@@ -71,7 +71,7 @@
                                             <label for="kelas-column">Kelas Santri</label>
                                             <select class="selectpicker form-control" id="kelas-column" data-container="body" data-live-search="true" name="kelas_santri" title="Pilih Kelas" data-hide-disabled="true" required>
                                                 <option value="XII RPL">XII RPL</option>
-                                                <option value="XII RPL">XII TKJ</option>
+                                                <option value="XII TKJ">XII TKJ</option>
                                             </select>
                                         </div>
                                     </div>

@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Tugas extends Model
+class Revisi extends Model
 {
     use HasFactory;
-    protected $fillable = ["pembimbing_id","nama_tugas","deskripsi_tugas","batas_pengumpulan_tugas","file_tugas"];
+    protected $table = "revisi";
+    protected $fillable = ["jawaban_id","pembimbing_id","status_revisi","keterangan_revisi","tanggal_revisi"];
     protected $keyType = 'string';
 
     public function pembimbing()
@@ -18,11 +19,6 @@ class Tugas extends Model
 
     public function jawaban()
     {
-        return $this->hasOne(Jawaban::class);
+        return $this->belongsTo(Jawaban::class);
     }
-
-    // public function walsan()
-    // {
-    //     return $this->hasOne(walsan::class);
-    // }
 }

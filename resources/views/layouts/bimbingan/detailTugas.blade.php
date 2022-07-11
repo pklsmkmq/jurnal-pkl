@@ -46,7 +46,7 @@
                                 <div class="container row">
                                     @if (auth()->user()->status == "santri")
                                         <a href="{{ $data->file_tugas }}" target="_blank"><button class="col-6 btn btn-primary">Download File Tugas</button></a>
-                                        <button class="col-6 btn btn-success">Kerjakan Tugas</button>
+                                        <a href="{{ route('addJawaban',$id = $data->id) }}"><button class="col-6 btn btn-success">Kerjakan Tugas</button></a>
                                     @else
                                         <a href="{{ $data->file_tugas }}" target="_blank"><button class="col-12 btn btn-primary">Download File Tugas</button></a>
                                     @endif

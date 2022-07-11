@@ -9,7 +9,9 @@ use App\Http\Controllers\{
     jurnalController,
     kunjunganController,
     SettingController,
-    TugasController
+    TugasController,
+    JawabanController,
+    RevisiController
 };
 
 Route::get('/', [userController::class, 'login']);
@@ -92,5 +94,12 @@ Route::middleware(['auth:sanctum', 'verified'])->prefix('pkl')->group(function (
         Route::get('/edit/{id}', [TugasController::class, 'edit'])->name('editTugas');
         Route::put('/update/{id}', [TugasController::class, 'update'])->name('updateTugas');
         Route::delete('/delete/{id}', [TugasController::class, 'destroy'])->name('deleteTugas');
+        Route::get('/kerjakan/{id}', [JawabanController::class, 'index'])->name('addJawaban');
+        Route::post('/saveJawaban/{id}', [JawabanController::class, 'store'])->name('saveJawaban');
+        Route::get('/editJawaban/{id}', [JawabanController::class, 'show'])->name('editJawaban');
+        Route::put('/updateJawaban/{id}', [JawabanController::class, 'update'])->name('updateJawaban');
+        Route::get('/detailJawaban/{id}', [JawabanController::class, 'detailJawaban'])->name('detailJawaban');
+        Route::post('/saveRevisi/{id}', [RevisiController::class, 'store'])->name('saveRevisi');
+        Route::put('/updateRevisi/{id}', [RevisiController::class, 'update'])->name('updateRevisi');
     });
 });

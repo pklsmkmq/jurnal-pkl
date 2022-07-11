@@ -32,7 +32,7 @@
     <section id="multiple-column-form">
         <div class="row match-height">
             <div class="col-12">
-                <div class="card shadow rounded">
+                <div class="card shadow rounded mb-5">
                     <div class="card-header">
                         <h1>{{ $data->judul_jurnal }}</h1>
                     </div>
