@@ -33,7 +33,13 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-content">
-                        <div class="card-body">
+                        @if ($data->revisi != null && $data->revisi->status_revisi == "Revisi")
+                            <div class="card-header bg-warning">
+                                <h4>Keterangan Revisi Guru Pembimbing</h4>
+                                <span>{{ $data->revisi->keterangan_revisi }}</span>
+                            </div>
+                        @endif
+                        <div class="card-body mt-3">
                             @include('layouts/massage')
                             <form class="form" method="POST" action="{{ route('updateJawaban',$id = $data->id) }}" enctype="multipart/form-data">
                                 @csrf

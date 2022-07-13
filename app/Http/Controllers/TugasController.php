@@ -30,7 +30,7 @@ class TugasController extends Controller
             $santri = santri::where('email_santri',$email)->with('pembimbing')->first();
             $data = Tugas::where('pembimbing_id', $santri->pembimbing->id)->orderBy('id', 'asc')->get();
             foreach ($data as $key) {
-                $jawaban = Jawaban::where('santri_nisn', $santri->nisn)->where('tugas_id', $key->id)->first();
+                $jawaban = Jawaban::where('santri_nisn', $santri->nisn)->where('tugas_id', $key->id)->with('revisi')->first();
                 $key->jawaban = $jawaban;
             }
         }elseif ($status == "walsan") {
@@ -38,7 +38,7 @@ class TugasController extends Controller
             $santri = santri::where('email_santri',$walsan->santri->email_santri)->with('pembimbing')->first();
             $data = Tugas::where('pembimbing_id', $santri->pembimbing->id)->orderBy('id', 'asc')->get();
             foreach ($data as $key) {
-                $jawaban = Jawaban::where('santri_nisn', $santri->nisn)->where('tugas_id', $key->id)->first();
+                $jawaban = Jawaban::where('santri_nisn', $santri->nisn)->where('tugas_id', $key->id)->with('revisi')->first();
                 $key->jawaban = $jawaban;
             }
         }else {

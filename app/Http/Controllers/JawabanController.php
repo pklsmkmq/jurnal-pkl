@@ -112,7 +112,7 @@ class JawabanController extends Controller
         $email = Auth::user()->email;
         if ($status == "santri") {
             $santri = santri::where('email_santri',$email)->with('pembimbing')->first();
-            $data = Jawaban::where('id', $id)->where('santri_nisn', $santri->nisn)->with('tugas')->first();
+            $data = Jawaban::where('id', $id)->where('santri_nisn', $santri->nisn)->with('tugas')->with('revisi')->first();
             if (!$data) {
                 return abort(404);
             }else{

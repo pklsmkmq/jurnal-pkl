@@ -169,7 +169,11 @@
                               <td>{{ str_replace(" ", " | ",$item->batas_pengumpulan_tugas) }}</td>
                               <td>
                                 @if ($item->jawaban != null)
-                                  Sudah DiKumpulkan
+                                  @if ($item->jawaban->revisi == null)
+                                    Sudah DiKumpulkan
+                                  @else
+                                    {{ $item->jawaban->revisi->status_revisi }} 
+                                  @endif
                                 @else
                                   Belum Dikerjakan
                                 @endif
@@ -178,7 +182,7 @@
                                 <a href="{{ route('showTugas',$id = $item->id) }}"><button class="btn btn-secondary mb-1 float-left mr-1">Lihat Detail</button></a>
                                 @if (auth()->user()->status == "santri")
                                   @if ($item->jawaban != null)
-                                  <a href="{{ route('editJawaban',$id = $item->jawaban->id) }}"><button class="btn btn-primary mb-1 float-left mr-1">Ubah Jawaban</button></a>
+                                  <a href="{{ route('editJawaban',$id = $item->jawaban->id) }}"><button class="btn btn-primary mb-1 float-left mr-1">@if($item->jawaban->revisi != null && $item->jawaban->revisi->status_revisi == "Revisi")Revisi Jawaban @else Ubah Jawaban @endif</button></a>
                                   @else
                                     <a href="{{ route('addJawaban',$id = $item->id) }}"><button class="btn btn-danger mb-1 float-left mr-1">Kerjakan</button></a>
                                   @endif
