@@ -62,14 +62,21 @@
                                 <div class="col-md-12 col-12">
                                     <div class="form-group">
                                         <label for="status_tugas">Status Tugas</label><br>
-                                        <select class="selectpicker form-control" id="status_tugas" data-container="body" data-live-search="true" name="status_revisi" title="Pilih Status" data-hide-disabled="true" required>
-                                            <option value="Revisi" @if ($jawaban->revisi->status_revisi == "Revisi")
-                                                selected
-                                            @endif>Revisi</option>
-                                            <option value="Tuntas" @if ($jawaban->revisi->status_revisi == "Tuntas")
-                                                selected
-                                            @endif>Tuntas</option>
-                                        </select>
+                                        @if ($jawaban->revisi == null)
+                                            <select class="selectpicker form-control" id="status_tugas" data-container="body" data-live-search="true" name="status_revisi" title="Pilih Status" data-hide-disabled="true" required>
+                                                <option value="Revisi">Revisi</option>
+                                                <option value="Tuntas">Tuntas</option>
+                                            </select> 
+                                        @else
+                                            <select class="selectpicker form-control" id="status_tugas" data-container="body" data-live-search="true" name="status_revisi" title="Pilih Status" data-hide-disabled="true" required>
+                                                <option value="Revisi" @if ($jawaban->revisi->status_revisi == "Revisi")
+                                                    selected
+                                                @endif>Revisi</option>
+                                                <option value="Tuntas" @if ($jawaban->revisi->status_revisi == "Tuntas")
+                                                    selected
+                                                @endif>Tuntas</option>
+                                            </select>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-md-12 col-12">

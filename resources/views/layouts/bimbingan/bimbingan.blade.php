@@ -48,17 +48,23 @@
             @if ($jumlah > 0)
               <div class="container">
                 <div class="accordion" id="accordionExample">
+                  @php
+                      $nmr = 1;
+                  @endphp
                   @foreach ($data as $item)
+                    @php
+                        $nmr++;
+                    @endphp
                     <div class="accordion-item">
-                      <h2 class="accordion-header" id="heading{{ $nomor }}">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $nomor }}" aria-expanded="false" aria-controls="collapse{{ $nomor }}">
+                      <h2 class="accordion-header" id="heading{{ $nmr }}">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $nmr }}" aria-expanded="false" aria-controls="collapse{{ $nmr }}">
                           @if (auth()->user()->status == "admin")
                             {{ $item->pembimbing->nama_pembimbing }} ||     
                           @endif
                           {{ $item->nama_tugas }}
                         </button>
                       </h2>
-                      <div id="collapse{{ $nomor }}" class="accordion-collapse collapse" aria-labelledby="heading{{ $nomor }}" data-bs-parent="#accordionExample">
+                      <div id="collapse{{ $nmr }}" class="accordion-collapse collapse" aria-labelledby="heading{{ $nmr }}" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
                           <table class="table table-striped" id="table2">
                             <thead>

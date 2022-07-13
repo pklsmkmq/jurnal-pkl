@@ -195,6 +195,7 @@ class JawabanController extends Controller
         $status = Auth::user()->status; 
         $email = Auth::user()->email;
         $find = "";
+        $angka = 1;
         if ($status == "pembimbing") {
             $pembimbing = pembimbing::where('email_pembimbing',$email)->with('tugas')->first();
             if (count($pembimbing->tugas) > 0) {
@@ -209,9 +210,12 @@ class JawabanController extends Controller
                     if ($find != "") {
                         $jawaban = Jawaban::where('tugas_id',$key->id)->where('id',$find)->with('santri')->with('tugas')->with('revisi')->first();
                         return view('layouts/bimbingan/detailJawaban', compact('jawaban'));
-                    } else {
+                        // return $jawaban;
+                    } 
+                    if($angka == count($pembimbing->tugas)) {
                         return abort(404);
                     }
+                    $angka++;
                 }
             }else{
                 return abort(404);    
