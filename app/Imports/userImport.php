@@ -16,7 +16,7 @@ class userImport implements ToModel
         return new User([
             "name"=>$row[1],
             "email"=>$row[2],
-            "password"=>bcrypt("pklsmkmq2021"),
+            "password"=>bcrypt("pklsmkmq2022"),
             "status"=>"santri"
         ]);
     }

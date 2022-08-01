@@ -114,7 +114,7 @@ class santriController extends Controller
                 $dataUser = new User;
                 $dataUser->name = $request->nama_santri;
                 $dataUser->email = $request->email_santri;
-                $dataUser->password = bcrypt("pklsmkmq2021");
+                $dataUser->password = bcrypt("pklsmkmq2022");
                 $dataUser->status = "santri";
                 $resultUser = $dataUser->save();
                 if($resultUser){
