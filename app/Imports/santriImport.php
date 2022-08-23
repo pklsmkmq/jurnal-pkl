@@ -14,7 +14,7 @@ class santriImport implements ToModel
     public function model(array $row)
     {
         return new santri([
-            "nisn"=>$row[0],
+            "nisn"=>"$row[0]",
             "nama_santri"=>$row[1],
             "email_santri"=>$row[2],
             "telepon_santri"=>$row[3],

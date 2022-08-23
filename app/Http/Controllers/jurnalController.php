@@ -26,7 +26,7 @@ class jurnalController extends Controller
             $data = jurnal::where('santri_nisn',$santri->nisn)->with('santri')->orderBy('tanggal_jurnal', 'desc')->get();
         }elseif($user == "pembimbing"){
             $guru = pembimbing::where('email_pembimbing',Auth::user()->email)->first();
-            $santri = santri::where('pembimbing_id',$guru->id)->get();
+            $santri = santri::where('pembimbing_id',$guru->id)->where('status',"0")->get();
             if(count($santri) == 0){
                 $data = [];
             }else{
@@ -45,11 +45,20 @@ class jurnalController extends Controller
                 $data = jurnal::where('santri_nisn',$walsan->santri_nisn)->orderBy('tanggal_jurnal', 'desc')->with('santri')->get();
             }
         }else{
-            $cek = jurnal::count();
-            if ($cek == 0) {
-                $data = null;
+            $santri = santri::where('status',"0")->get();
+            if(count($santri) == 0){
+                $data = [];
             }else{
-                $data = jurnal::with('santri')->orderBy('tanggal_jurnal', 'desc')->get();
+                $cek = jurnal::count();
+                if ($cek != 0) {
+                    $data = jurnal::with('santri');
+                    foreach ($santri as $item) {
+                        $data = $data->orWhere('santri_nisn',$item->nisn);
+                    }
+                    $data = $data->orderBy('tanggal_jurnal', 'desc')->get();
+                }else{
+                    $data = null;
+                }
             }
         }
         return view('layouts/jurnal/jurnal',compact('data'));

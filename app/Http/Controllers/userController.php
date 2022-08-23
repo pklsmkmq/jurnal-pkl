@@ -23,11 +23,16 @@ class userController extends Controller
             }
         }
         if(Auth::user()->status == "admin"){
-            $data1 = santri::count();
+            $data1 = santri::where('status','0')->count();
             $data2 = pembimbing::count();
             $data3 = kunjungan::count();
-            $data4 = jurnal::count();
-
+            $data4 = jurnal::with('santri');
+            $dataSant =  santri::where('status','0')->get();
+            foreach ($dataSant as $dat) {
+                $data4 = $data4->orWhere('santri_nisn',$dat->nisn);
+            }
+            $data4 = $data4->count();
+        
             if($data4 == 0){
                 $recentJurnal = null;    
             }else{
@@ -63,7 +68,7 @@ class userController extends Controller
             }
         }elseif (Auth::user()->status == "pembimbing") {
             $pembimbing = pembimbing::where('email_pembimbing',Auth::user()->email)->first();
-            $dt = santri::where('pembimbing_id',$pembimbing->id)->get();
+            $dt = santri::where('pembimbing_id',$pembimbing->id)->where('status','0')->get();
             $jm = 0;
             foreach ($dt as $key) {
                 $jurnal = jurnal::where('santri_nisn',$key->nisn)->count();
@@ -72,7 +77,7 @@ class userController extends Controller
             $dt2 = santri::where('pembimbing_id',$pembimbing->id)->groupBy('perusahaan_santri')->get();
             $dt3 = kunjungan::where('pembimbing_id',$pembimbing->id)->count();
 
-            $data1 = santri::where('pembimbing_id',$pembimbing->id)->count();
+            $data1 = santri::where('pembimbing_id',$pembimbing->id)->where('status','0')->count();
             $data2 = (count($dt2) * 2) - $dt3;
             $data3 = $dt3;
             $data4 = $jm;

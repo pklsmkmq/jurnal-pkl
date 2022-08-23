@@ -37,11 +37,12 @@
 }
 
 .img-avatar {
-    padding: 57%;
+    padding: 15px;
     border-radius: 50% !important;
     color: white;
     font-weight: bold;
-    height: 50px;
+    font-family: monospace;
+    /* height: 50px; */
 }
 
 button.btn.btn-block.btn-xl.btn-light-primary.font-bold.mt-3 {
@@ -53,7 +54,7 @@ button.btn.btn-block.btn-xl.btn-light-primary.font-bold.mt-3 {
 }
 
 .margin-avatar{
-    margin-left: 40px !important;
+    margin-left: 10px !important;
 }
 
 .margin-avatar h5 {

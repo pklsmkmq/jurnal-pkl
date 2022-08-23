@@ -21,7 +21,7 @@ class santriController extends Controller
     public function index(Request $request)
     {
         if(Auth::user()->status == "admin"){
-            $dt = santri::get();
+            $dt = santri::where('status',"0")->get();
             $data = array();
             foreach ($dt as $key) {
                 $cek = jurnal::where('santri_nisn', $key->nisn)->count();
@@ -32,8 +32,8 @@ class santriController extends Controller
         }elseif (Auth::user()->status == "pembimbing") {
             $email = Auth::user()->email;
             $pembimbing = pembimbing::where('email_pembimbing',$email)->first();
-            $dt = santri::where('pembimbing_id',$pembimbing->id)->get();
-            $dataPT = santri::where('pembimbing_lapangan_1',$pembimbing->id)->orWhere('pembimbing_lapangan_2',$pembimbing->id)->get();
+            $dt = santri::where('pembimbing_id',$pembimbing->id)->where('status',"0")->get();
+            $dataPT = santri::where('pembimbing_lapangan_1',$pembimbing->id)->orWhere('pembimbing_lapangan_2',$pembimbing->id)->where('status',"0")->get();
             $data = array();
             foreach ($dt as $key) {
                 $cek = jurnal::where('santri_nisn', $key->nisn)->count();
@@ -289,16 +289,18 @@ class santriController extends Controller
             $errorString = implode(",",$cek->messages()->all());
             return redirect()->route('santri')->with('warning',$errorString);
         }else{
-            $data = Excel::import(new santriImport, $request->file('file')->store('temp'));
+            $data = Excel::import(new santriImport, $request->file('file'));
             if ($data) {
-                $dataUser = Excel::import(new userImport, $request->file('file')->store('temp'));
-                if ($dataUser) {
-                    return redirect()->route('santri')->with('success',"Berhasil Mengupload Data");
-                }else{
-                    return redirect()->route('santri')->with('error',"Gagal Mengupload Data");
-                }
+                return "berhasil";
+                // $dataUser = Excel::import(new userImport, $request->file('file')->store('temp'));
+                // if ($dataUser) {
+                //     return redirect()->route('santri')->with('success',"Berhasil Mengupload Data");
+                // }else{
+                //     return redirect()->route('santri')->with('error',"Gagal Mengupload Data");
+                // }
             } else {
-                return redirect()->route('santri')->with('error',"Gagal Mengupload Data");
+                return "gagal";
+                // return redirect()->route('santri')->with('error',"Gagal Mengupload Data");
             }
         }
     }

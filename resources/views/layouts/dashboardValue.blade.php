@@ -168,8 +168,10 @@
                     @else
                         @foreach ($recentJurnal as $item)
                             <div class="recent-message d-flex px-4 py-3 border-bottom">
-                                <div class="avatar avatar-lg mr-3">
-                                    <div class="rounded bg-primary img-avatar">{{ $item->avatar }}</div>
+                                <div class="mr-3">
+                                    <div class="rounded bg-primary img-avatar lap-ava">
+                                        {{ $item->avatar }}
+                                    </div>
                                 </div>
                                 <div class="name ms-4 margin-avatar">
                                     <h5 class="mb-1">{{ $item->santri->nama_santri }}</h5>
