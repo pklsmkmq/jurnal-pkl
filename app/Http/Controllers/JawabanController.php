@@ -28,7 +28,7 @@ class JawabanController extends Controller
                 $batas = date('d-m-Y h:i:s', $newformat);
                 $sekarang = date("d-m-Y h:i:s");
                 
-                if ($sekarang < $batas) {
+                if ($sekarang > $batas) {
                     if ($data->jawaban != null) {
                         return abort(404);
                     }else{
