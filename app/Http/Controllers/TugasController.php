@@ -98,11 +98,12 @@ class TugasController extends Controller
             $data->deskripsi_tugas = $request->deskripsi_tugas;
             $data->batas_pengumpulan_tugas = $request->batas_pengumpulan_tugas;
             $data->pembimbing_id = $pem->id;
-            if ($request->file('file_tugas')) {
-                $fileT = $request->file('file_tugas');
-                $response = cloudinary()->upload($fileT->getRealPath())->getSecurePath();
-                $data->file_tugas = $response;
-            }
+            // if ($request->file_tugas) {
+            //     // $fileT = $request->file('file_tugas');
+            //     // $response = cloudinary()->upload($fileT->getRealPath())->getSecurePath();
+            //     // $data->file_tugas = $response;
+            //     $data->file_tugas = $request->file_tugas;
+            // }
 
             $result = $data->save();
             if ($result) {

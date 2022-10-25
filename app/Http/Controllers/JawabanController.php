@@ -20,7 +20,12 @@ class JawabanController extends Controller
         $email = Auth::user()->email;
         if ($status == "santri") {
             $santri = santri::where('email_santri',$email)->with('pembimbing')->first();
-            $data = Tugas::where('pembimbing_id', $santri->pembimbing->id)->where('id', $id)->with('jawaban')->first();
+            $data = Tugas::where('pembimbing_id', $santri->pembimbing->id)
+                    ->where('id', $id)
+                    ->with(['jawaban' => function($query) use ($santri){
+                        $query->where('santri_nisn', $santri->nisn);
+                    }])
+                    ->first();
             if (!$data) {
                 return abort(404);
             }else{
@@ -28,7 +33,7 @@ class JawabanController extends Controller
                 $batas = date('d-m-Y h:i:s', $newformat);
                 $sekarang = date("d-m-Y h:i:s");
                 
-                if ($sekarang > $batas) {
+                if ($sekarang < $batas) {
                     if ($data->jawaban != null) {
                         return abort(404);
                     }else{

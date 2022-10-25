@@ -52,7 +52,7 @@
                                             <input class="form-control" id="batas_pengumpulan_tugas" name="batas_pengumpulan_tugas" value="{{ $dt }}" type="datetime-local" required>
                                         </div>
                                     </div>
-                                    <div class="col-md-12 col-12">
+                                    {{-- <div class="col-md-12 col-12">
                                         <div class="form-group">
                                             <label for="file_tugas">File Tugas</label><br>
                                             @if ($data->file_tugas != null)
@@ -62,7 +62,7 @@
                                             <span class="fst-italic">Opsional (Jika terdapat contoh atau panduan tugas)</span>
                                             <input type="file" id="file_tugas" name="file_tugas" class="form-control">
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="col-md-12 col-12">
                                         <div class="form-group">
                                             <label for="desc-column">Deskripsi Tugas</label>

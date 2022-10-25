@@ -42,11 +42,11 @@
                                 <h6 class="float-none">Keterangan</h6>
                                 <p>{{ $data->deskripsi_tugas }}</p>
                             </div>
-                            @if ($data->file_tugas != null)
+                            {{-- @if ($data->file_tugas != null)
                                 <div class="container row">
                                     <a href="{{ $data->file_tugas }}" target="_blank"><button class="col-12 btn btn-primary">Download File Tugas</button></a>
                                 </div>
-                            @endif
+                            @endif --}}
                         </div>
                     </div>
                 </div>
